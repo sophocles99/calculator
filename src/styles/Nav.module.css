@@ -1,0 +1,10 @@
+.nav {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.closeButton {
+  font-size: 1.2rem;
+  border-radius: 50%;
+  border: none;
+}

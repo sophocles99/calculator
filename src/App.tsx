@@ -1,11 +1,12 @@
-import './App.css'
+import Display from "./components/Display";
+import Header from "./components/Header";
+import styles from "./styles/App.module.css";
 
-function App() {
+const App = () => {
+  return <main className={styles.App}>
+    <Header />
+    <Display />
+  </main>;
+};
 
-  return (
-    <>
-    </>
-  )
-}
-
-export default App
+export default App;
