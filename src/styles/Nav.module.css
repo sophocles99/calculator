@@ -4,7 +4,7 @@
 }
 
 .closeButton {
-  font-size: 1.2rem;
-  border-radius: 50%;
   border: none;
+  border-radius: 50%;
+  font-size: 1.1rem;
 }
