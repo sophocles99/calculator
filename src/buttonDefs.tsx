@@ -10,7 +10,7 @@ import {
   faEquals,
 } from "@fortawesome/free-solid-svg-icons";
 
-export interface ButtonProps {
+export type ButtonProps = {
   content: ReactNode;
   type: string;
   onClick: (event: React.MouseEvent<HTMLElement>) => void;
