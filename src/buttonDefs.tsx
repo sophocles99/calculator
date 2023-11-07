@@ -1,4 +1,4 @@
-import { ButtonProps } from "./Button";
+import { ReactNode } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlusMinus,
@@ -10,6 +10,13 @@ import {
   faEquals,
 } from "@fortawesome/free-solid-svg-icons";
 
+export interface ButtonProps {
+  content: ReactNode;
+  type: string;
+  onClick: (event: React.MouseEvent<HTMLElement>) => void;
+  isDoubleWidth: boolean;
+}
+
 const doNothing = () => {};
 
 const buttonDefs: ButtonProps[] = [
@@ -20,7 +27,12 @@ const buttonDefs: ButtonProps[] = [
     onClick: doNothing,
     isDoubleWidth: false,
   },
-  { content: <FontAwesomeIcon icon={faPercent} />, type: "function", onClick: doNothing, isDoubleWidth: false },
+  {
+    content: <FontAwesomeIcon icon={faPercent} />,
+    type: "function",
+    onClick: doNothing,
+    isDoubleWidth: false,
+  },
   {
     content: <FontAwesomeIcon icon={faDivide} />,
     type: "operator",

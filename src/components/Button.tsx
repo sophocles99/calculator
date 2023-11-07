@@ -1,12 +1,5 @@
-import { ReactNode } from "react";
+import { ButtonProps } from "../buttonDefs";
 import styles from "../styles/Button.module.css";
-
-export type ButtonProps = {
-  content: ReactNode;
-  type: string;
-  onClick: (event: React.MouseEvent<HTMLElement>) => void;
-  isDoubleWidth: boolean;
-};
 
 const Button = ({ content, type, onClick, isDoubleWidth }: ButtonProps) => {
   return (
