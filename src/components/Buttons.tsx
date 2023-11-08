@@ -1,15 +1,17 @@
 import styles from "../styles/Buttons.module.css";
 import Button from "./Button";
-import buttonDefs, { ButtonProps } from "../buttonDefs";
+import { ButtonDef } from "../App";
 
-const Buttons = () => {
+interface ButtonsProps {
+  buttonDefs: ButtonDef[]
+}
+
+export default function Buttons({buttonDefs}: ButtonsProps) {
   return (
     <section className={styles.buttons}>
-      {buttonDefs.map((buttonDef: ButtonProps, index) => {
+      {buttonDefs.map((buttonDef, index) => {
         return <Button key={index} {...buttonDef} />;
       })}
     </section>
   );
-};
-
-export default Buttons;
+}

@@ -1,7 +1,7 @@
-import { ButtonProps } from "../buttonDefs";
+import { ButtonDef } from "../App";
 import styles from "../styles/Button.module.css";
 
-const Button = ({ content, type, onClick, isDoubleWidth }: ButtonProps) => {
+export default function Button ({ content, type, onClick, isDoubleWidth }: ButtonDef) {
   return (
     <button
       className={`${styles.button} ${styles[type]} ${
@@ -13,5 +13,3 @@ const Button = ({ content, type, onClick, isDoubleWidth }: ButtonProps) => {
     </button>
   );
 };
-
-export default Button;

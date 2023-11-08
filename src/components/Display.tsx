@@ -1,15 +1,15 @@
-import { calcState } from "../App";
+import { State } from "../App";
 import styles from "../styles/Display.module.css";
 
 type DisplayProps = {
-  calcState: calcState
-}
-
-const Display = ({calcState}: DisplayProps) => {
-  return <section className={styles.display}>
-    <p>{calcState.answer ? calcState.expression : ""}</p>
-    <p className={styles.main}>{calcState.answer ? calcState.answer : calcState.expression}</p>
-  </section>;
+  state: State;
 };
 
-export default Display;
+export default function Display({ state }: DisplayProps) {
+  return (
+    <section className={styles.display}>
+      <p>{state.previous}</p>
+      <p className={styles.main}>{state.current}</p>
+    </section>
+  );
+}
