@@ -21,7 +21,7 @@ export interface State {
 }
 
 interface Action {
-  type: "addChar" | "clear";
+  type: "addDigit" | "addOperator" | "clear";
   value: string;
 }
 
@@ -34,10 +34,21 @@ export interface ButtonDef {
 
 function reducer(state: State, action: Action) {
   switch (action.type) {
-    case "addChar": {
+    case "addDigit": {
       return {
         ...state,
         current: state.current + action.value,
+      };
+    }
+    case "addOperator": {
+      let newCurrent = state.current;
+      if (/[\+\-\*\\%]/.test(newCurrent.slice(-1))) {
+        newCurrent = newCurrent.slice(0, -1);
+      }
+      newCurrent += action.value;
+      return {
+        ...state,
+        current: newCurrent,
       };
     }
     case "clear": {
@@ -78,97 +89,97 @@ export default function App() {
           {
             content: <FontAwesomeIcon icon={faPercent} />,
             style: "function",
-            onClick: () => dispatch({ type: "addChar", value: "%" }),
+            onClick: () => dispatch({ type: "addOperator", value: "%" }),
             doubleWidth: false,
           },
           {
             content: <FontAwesomeIcon icon={faDivide} />,
             style: "operator",
-            onClick: () => dispatch({ type: "addChar", value: "/" }),
+            onClick: () => dispatch({ type: "addOperator", value: "/" }),
             doubleWidth: false,
           },
           {
             content: "7",
             style: "number",
-            onClick: () => dispatch({ type: "addChar", value: "7" }),
+            onClick: () => dispatch({ type: "addDigit", value: "7" }),
             doubleWidth: false,
           },
           {
             content: "8",
             style: "number",
-            onClick: () => dispatch({ type: "addChar", value: "8" }),
+            onClick: () => dispatch({ type: "addDigit", value: "8" }),
             doubleWidth: false,
           },
           {
             content: "9",
             style: "number",
-            onClick: () => dispatch({ type: "addChar", value: "9" }),
+            onClick: () => dispatch({ type: "addDigit", value: "9" }),
             doubleWidth: false,
           },
           {
             content: <FontAwesomeIcon icon={faTimes} />,
             style: "operator",
-            onClick: () => dispatch({ type: "addChar", value: "*" }),
+            onClick: () => dispatch({ type: "addOperator", value: "*" }),
             doubleWidth: false,
           },
           {
             content: "4",
             style: "number",
-            onClick: () => dispatch({ type: "addChar", value: "4" }),
+            onClick: () => dispatch({ type: "addDigit", value: "4" }),
             doubleWidth: false,
           },
           {
             content: "5",
             style: "number",
-            onClick: () => dispatch({ type: "addChar", value: "5" }),
+            onClick: () => dispatch({ type: "addDigit", value: "5" }),
             doubleWidth: false,
           },
           {
             content: "6",
             style: "number",
-            onClick: () => dispatch({ type: "addChar", value: "6" }),
+            onClick: () => dispatch({ type: "addDigit", value: "6" }),
             doubleWidth: false,
           },
           {
             content: <FontAwesomeIcon icon={faMinus} />,
             style: "operator",
-            onClick: () => dispatch({ type: "addChar", value: "-" }),
+            onClick: () => dispatch({ type: "addOperator", value: "-" }),
             doubleWidth: false,
           },
           {
             content: "1",
             style: "number",
-            onClick: () => dispatch({ type: "addChar", value: "1" }),
+            onClick: () => dispatch({ type: "addDigit", value: "1" }),
             doubleWidth: false,
           },
           {
             content: "2",
             style: "number",
-            onClick: () => dispatch({ type: "addChar", value: "2" }),
+            onClick: () => dispatch({ type: "addDigit", value: "2" }),
             doubleWidth: false,
           },
           {
             content: "3",
             style: "number",
-            onClick: () => dispatch({ type: "addChar", value: "3" }),
+            onClick: () => dispatch({ type: "addDigit", value: "3" }),
             doubleWidth: false,
           },
           {
             content: <FontAwesomeIcon icon={faPlus} />,
             style: "operator",
-            onClick: () => dispatch({ type: "addChar", value: "+" }),
+            onClick: () => dispatch({ type: "addOperator", value: "+" }),
             doubleWidth: false,
           },
           {
             content: "0",
             style: "number",
-            onClick: () => dispatch({ type: "addChar", value: "0" }),
+            onClick: () => dispatch({ type: "addDigit", value: "0" }),
             doubleWidth: true,
           },
           {
             content: ".",
             style: "number",
-            onClick: () => dispatch({ type: "addChar", value: "." }),
+            onClick: () => dispatch({ type: "addDigit", value: "." }),
             doubleWidth: false,
           },
           {
