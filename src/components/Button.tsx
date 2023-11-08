@@ -1,22 +1,45 @@
-import { ButtonDef } from "../App";
+import { Action, ButtonDef } from "../App";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "../styles/Button.module.css";
+import {
+  faPlusMinus,
+  faPercent,
+  faDivide,
+  faTimes,
+  faMinus,
+  faPlus,
+  faEquals,
+} from "@fortawesome/free-solid-svg-icons";
+import { Dispatch } from "react";
+
+type ButtonProps = ButtonDef & { dispatch: Dispatch<Action> };
+
+const icons = {
+  "+-": faPlusMinus,
+  "%": faPercent,
+  "/": faDivide,
+  "*": faTimes,
+  "-": faMinus,
+  "+": faPlus,
+  "=": faEquals,
+};
 
 export default function Button({
-  content,
+  value,
+  type,
   icon,
-  style,
-  onClick,
-  doubleWidth,
-}: ButtonDef) {
+  double,
+  dispatch,
+}: ButtonProps) {
   return (
     <button
-      id={content}
-      className={`${styles.button} ${styles[style]} ${
-        doubleWidth ? styles.doubleWidth : ""
+      id={value}
+      className={`${styles.button} ${styles[type]} ${
+        double ? styles.doubleWidth : ""
       }`}
-      onClick={onClick}
+      onClick={() => dispatch({ type, value })}
     >
-      {icon ? icon : content}
+      {icon ? <FontAwesomeIcon icon={icons[value]} /> : value}
     </button>
   );
 }
