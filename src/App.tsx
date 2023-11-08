@@ -1,4 +1,4 @@
-import { useReducer, ReactNode } from "react";
+import { useEffect, useReducer, ReactNode } from "react";
 import Header from "./components/Header";
 import Display from "./components/Display";
 import Buttons from "./components/Buttons";
@@ -32,6 +32,9 @@ export interface ButtonDef {
   doubleWidth: boolean;
 }
 
+const DIGITS_REGEX = /[1234567890\.]/;
+const OPERATORS_REGEX = /[\+\-\*\/%]/;
+
 function reducer(state: State, action: Action) {
   switch (action.type) {
     case "addDigit": {
@@ -42,7 +45,7 @@ function reducer(state: State, action: Action) {
     }
     case "addOperator": {
       let newCurrent = state.current;
-      if (/[\+\-\*\\%]/.test(newCurrent.slice(-1))) {
+      if (OPERATORS_REGEX.test(newCurrent.slice(-1))) {
         newCurrent = newCurrent.slice(0, -1);
       }
       newCurrent += action.value;
@@ -67,6 +70,25 @@ export default function App() {
     previous: "45+45",
     current: "90",
   });
+
+  function handleKeyDown(e: KeyboardEvent) {
+    const key = e.key;
+    const actionType = DIGITS_REGEX.test(key)
+      ? "addDigit"
+      : OPERATORS_REGEX.test(key)
+      ? "addOperator"
+      : key === "c" || key === "C"
+      ? "clear"
+      : null;
+    if (actionType) {
+      dispatch({ type: actionType, value: key });
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   return (
     <main className={styles.App}>
