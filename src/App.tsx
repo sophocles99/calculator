@@ -26,7 +26,8 @@ interface Action {
 }
 
 export interface ButtonDef {
-  content: ReactNode;
+  content: string;
+  icon?: ReactNode;
   style: "function" | "operator" | "number";
   onClick: (event: React.MouseEvent<HTMLElement>) => void;
   doubleWidth: boolean;
@@ -72,17 +73,21 @@ export default function App() {
   });
 
   function handleKeyDown(e: KeyboardEvent) {
-    const key = e.key;
-    const actionType = DIGITS_REGEX.test(key)
-      ? "addDigit"
-      : OPERATORS_REGEX.test(key)
-      ? "addOperator"
-      : key === "c" || key === "C"
-      ? "clear"
-      : null;
-    if (actionType) {
-      dispatch({ type: actionType, value: key });
+    const button = document.getElementById(e.key.toUpperCase());
+    if (button) {
+      button.click();
     }
+    // const key = e.key;
+    // const actionType = DIGITS_REGEX.test(key)
+    //   ? "addDigit"
+    //   : OPERATORS_REGEX.test(key)
+    //   ? "addOperator"
+    //   : key === "c" || key === "C"
+    //   ? "clear"
+    //   : null;
+    // if (actionType) {
+    //   dispatch({ type: actionType, value: key });
+    // }
   }
 
   useEffect(() => {
@@ -103,19 +108,22 @@ export default function App() {
             doubleWidth: false,
           },
           {
-            content: <FontAwesomeIcon icon={faPlusMinus} />,
+            content: "+-",
+            icon: <FontAwesomeIcon icon={faPlusMinus} />,
             style: "function",
             onClick: doNothing,
             doubleWidth: false,
           },
           {
-            content: <FontAwesomeIcon icon={faPercent} />,
+            content: "%",
+            icon: <FontAwesomeIcon icon={faPercent} />,
             style: "function",
             onClick: () => dispatch({ type: "addOperator", value: "%" }),
             doubleWidth: false,
           },
           {
-            content: <FontAwesomeIcon icon={faDivide} />,
+            content: "/",
+            icon: <FontAwesomeIcon icon={faDivide} />,
             style: "operator",
             onClick: () => dispatch({ type: "addOperator", value: "/" }),
             doubleWidth: false,
@@ -139,7 +147,8 @@ export default function App() {
             doubleWidth: false,
           },
           {
-            content: <FontAwesomeIcon icon={faTimes} />,
+            content: "*",
+            icon: <FontAwesomeIcon icon={faTimes} />,
             style: "operator",
             onClick: () => dispatch({ type: "addOperator", value: "*" }),
             doubleWidth: false,
@@ -163,7 +172,8 @@ export default function App() {
             doubleWidth: false,
           },
           {
-            content: <FontAwesomeIcon icon={faMinus} />,
+            content: "-",
+            icon: <FontAwesomeIcon icon={faMinus} />,
             style: "operator",
             onClick: () => dispatch({ type: "addOperator", value: "-" }),
             doubleWidth: false,
@@ -187,7 +197,8 @@ export default function App() {
             doubleWidth: false,
           },
           {
-            content: <FontAwesomeIcon icon={faPlus} />,
+            content: "+",
+            icon: <FontAwesomeIcon icon={faPlus} />,
             style: "operator",
             onClick: () => dispatch({ type: "addOperator", value: "+" }),
             doubleWidth: false,
@@ -205,7 +216,8 @@ export default function App() {
             doubleWidth: false,
           },
           {
-            content: <FontAwesomeIcon icon={faEquals} />,
+            content: "=",
+            icon: <FontAwesomeIcon icon={faEquals} />,
             style: "operator",
             onClick: doNothing,
             doubleWidth: false,
