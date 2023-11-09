@@ -6,15 +6,13 @@ type DisplayProps = {
 };
 
 export default function Display({ state }: DisplayProps) {
-  let displayPrevious = state.previous.replaceAll("/", "\u00F7");
-  displayPrevious = displayPrevious.replaceAll("*", "\u00d7");
-  let displayCurrent = state.current.replaceAll("/", "\u00F7");
-  displayCurrent = displayCurrent.replaceAll("*", "\u00d7");
+  let displayExpression = state.expression.replaceAll("/", "\u00F7");
+  displayExpression = displayExpression.replaceAll("*", "\u00d7");
 
   return (
     <section className={styles.display}>
-      <p className={styles.previous}>{displayPrevious}</p>
-      <p className={styles.current}>{displayCurrent}</p>
+      <p className={styles.expression}>{displayExpression}</p>
+      <p className={styles.answer}>{state.answer}</p>
     </section>
   );
 }

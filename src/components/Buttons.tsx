@@ -1,10 +1,10 @@
 import styles from "../styles/Buttons.module.css";
 import Button from "./Button";
-import { Action, ButtonDef } from "../App";
+import { Action, ButtonDefType } from "../App";
 import { Dispatch } from "react";
 
 export interface ButtonsProps {
-  buttonDefs: ButtonDef[];
+  buttonDefs: ButtonDefType[];
   dispatch: Dispatch<Action>
 }
 

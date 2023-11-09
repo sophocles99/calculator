@@ -1,6 +1,6 @@
-import { Action, ButtonDef } from "../App";
+import { Dispatch } from "react";
+import { Action, ButtonDefType } from "../App";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import styles from "../styles/Button.module.css";
 import {
   faPlusMinus,
   faPercent,
@@ -10,9 +10,9 @@ import {
   faPlus,
   faEquals,
 } from "@fortawesome/free-solid-svg-icons";
-import { Dispatch } from "react";
+import styles from "../styles/Button.module.css";
 
-type ButtonProps = ButtonDef & { dispatch: Dispatch<Action> };
+type ButtonProps = ButtonDefType & { dispatch: Dispatch<Action> };
 
 const icons = {
   "+-": faPlusMinus,

@@ -12,19 +12,19 @@
   box-shadow: inset 4px 4px 4px 1px #a5c9aa;
 }
 
-.previous {
-  font-size: 1.5rem;
-  width: 100%;
-  text-align: right;
-}
-
-.current {
+.expression {
   width: 100%;
   font-size: 2rem;
-  line-height: 1;
-  height: 2.2rem;
+  height: 2.4rem;
   overflow: hidden;
-  white-space: nowrap;
+  word-break: break-all;
   text-align: right;
-  text-overflow: ellipsis;
+  /* text-overflow: ellipsis; */
+}
+
+.answer {
+  font-size: 1.5rem;
+  width: 100%;
+  height: 1.8rem;
+  text-align: right;
 }
