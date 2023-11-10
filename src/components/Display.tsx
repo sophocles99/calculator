@@ -14,7 +14,7 @@ export default function Display({ state }: DisplayProps) {
     <section className={styles.display}>
       <p className={styles.expression}>{displayExpression}</p>
       <p className={`${styles.answer} ${error ? styles.error : ""}`}>
-        {error ? "Error" : answer}
+        {error ? "Format error" : answer}
       </p>
     </section>
   );
