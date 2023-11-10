@@ -1,4 +1,3 @@
-import { State } from "../App";
 import styles from "../styles/Display.module.css";
 
 type DisplayProps = {

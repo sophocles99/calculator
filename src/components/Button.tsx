@@ -1,5 +1,4 @@
 import { Dispatch } from "react";
-import { Action, ButtonDefType } from "../App";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlusMinus,

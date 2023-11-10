@@ -5,38 +5,6 @@ import Buttons from "./components/Buttons";
 import styles from "./styles/App.module.css";
 import {default as buttonStyles} from './styles/Button.module.css'
 
-type IconType = "+-" | "%" | "/" | "*" | "-" | "+" | "=";
-
-type ButtonType = "number" | "operator" | "function";
-
-type ButtonWithIconDefType = {
-  value: IconType;
-  type: ButtonType;
-  icon: true;
-  double: boolean;
-};
-
-type ButtonWithoutIconDefType = {
-  value: string;
-  type: ButtonType;
-  icon: false;
-  double: boolean;
-};
-
-export type ButtonDefType = ButtonWithIconDefType | ButtonWithoutIconDefType;
-
-export type State = {
-  expression: string;
-  answer: string;
-  overwrite: boolean;
-  error: boolean;
-};
-
-export type Action = {
-  type: ButtonType;
-  value: string;
-};
-
 const OPERATORS_REGEX = /[\+\-\*\/%]/;
 
 function containsTwoTerms(localExpression: string) {
