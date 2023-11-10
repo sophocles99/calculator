@@ -17,6 +17,7 @@
   font-size: 2rem;
   height: 2.4rem;
   overflow: hidden;
+  word-wrap: break-word;
   word-break: break-all;
   text-align: right;
 }

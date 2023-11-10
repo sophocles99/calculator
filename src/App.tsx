@@ -4,19 +4,18 @@ import Display from "./components/Display";
 import Buttons from "./components/Buttons";
 import buttonDefs from "./buttonDefs";
 import styles from "./styles/App.module.css";
-import {default as buttonStyles} from './styles/Button.module.css'
+import { default as buttonStyles } from "./styles/Button.module.css";
 
 const keyMap: { [index: string]: string } = {
-  "Enter": "=",
-  "Spacebar": "=",
-  "Escape": "C"  
-}
+  Enter: "=",
+  Spacebar: "=",
+  Escape: "C",
+};
 
 const OPERATORS_REGEX = /[\+\-\*\/%]/;
 
 function containsTwoTerms(localExpression: string) {
   const terms = localExpression.split(OPERATORS_REGEX);
-  console.log("containsTwoTerms, terms: ", terms);
   return terms.length >= 2 && terms[0] && terms[1];
 }
 
@@ -106,11 +105,15 @@ function reducer(state: State, action: Action) {
         }
         case "back": {
           const newExpression = state.expression.slice(0, -1);
-          return {
-            ...state,
-            expression: newExpression,
-            answer: evaluate(newExpression),
-          };
+          const newAnswer = containsTwoTerms(newExpression)
+          ? evaluate(newExpression)
+          : "";
+        return {
+          ...state,
+          expression: newExpression,
+          answer: newAnswer,
+          error: false,
+        };
         }
       }
       return state;
@@ -127,10 +130,9 @@ export default function App() {
   });
 
   function handleKeyDown(e: KeyboardEvent) {
-    
     let key = e.key;
     if (Object.keys(keyMap).includes(key)) {
-      key = keyMap[key]
+      key = keyMap[key];
     }
     if (key === "Backspace") {
       dispatch({ type: "function", value: "back" });
@@ -140,7 +142,7 @@ export default function App() {
 
     const button = document.getElementById(key.toUpperCase());
     if (button) {
-      e.preventDefault()
+      e.preventDefault();
       button.click();
       button.classList.add(buttonStyles.active);
       setTimeout(() => {
@@ -158,10 +160,7 @@ export default function App() {
     <main className={styles.App}>
       <Header />
       <Display state={state} />
-      <Buttons
-        dispatch={dispatch}
-        buttonDefs={buttonDefs}
-      />
+      <Buttons dispatch={dispatch} buttonDefs={buttonDefs} />
     </main>
   );
 }
