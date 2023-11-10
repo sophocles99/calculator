@@ -8,6 +8,11 @@
   color: white;
 }
 
+button:active, .active {
+  box-shadow: inset 2px 2px 4px 1px rgba(0, 0, 0, 0.24); 
+  transition: 0.2s step-start;
+}
+
 .function {
   background: linear-gradient(-45deg, #686eae, #999ece);
   border-color: #787db0;

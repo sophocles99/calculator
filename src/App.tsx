@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import Display from "./components/Display";
 import Buttons from "./components/Buttons";
 import styles from "./styles/App.module.css";
+import {default as buttonStyles} from './styles/Button.module.css'
 
 type IconType = "+-" | "%" | "/" | "*" | "-" | "+" | "=";
 
@@ -28,6 +29,7 @@ export type State = {
   expression: string;
   answer: string;
   overwrite: boolean;
+  error: boolean;
 };
 
 export type Action = {
@@ -35,21 +37,22 @@ export type Action = {
   value: string;
 };
 
-const DIGITS_REGEX = /[1234567890\.]/;
 const OPERATORS_REGEX = /[\+\-\*\/%]/;
 
+function containsTwoTerms(localExpression: string) {
+  const terms = localExpression.split(OPERATORS_REGEX);
+  console.log("containsTwoTerms, terms: ", terms);
+  return terms.length >= 2 && terms[0] && terms[1];
+}
+
 function evaluate(localExpression: string) {
-  // Remove any trailing operator
   if (OPERATORS_REGEX.test(localExpression.slice(-1))) {
     localExpression = localExpression.slice(0, -1);
   }
-  // Split into terms
-  const terms = localExpression.split(OPERATORS_REGEX);
-  // If at least two terms, evaluate
-  if (terms.length >= 2) {
+  try {
     return eval(localExpression).toString();
-  } else {
-  // Otherwise return empty string
+  } catch (error) {
+    console.log(error);
     return "";
   }
 }
@@ -64,21 +67,45 @@ function reducer(state: State, action: Action) {
           return state;
         }
       }
-      const newExpression = state.expression + action.value;
-      return {
-        ...state,
-        expression: newExpression,
-        answer: evaluate(newExpression),
-      };
+      if (state.overwrite) {
+        return {
+          ...state,
+          expression: action.value,
+          answer: "",
+          overwrite: false,
+          error: false,
+        };
+      } else {
+        const newExpression = state.expression + action.value;
+        const newAnswer = containsTwoTerms(newExpression)
+          ? evaluate(newExpression)
+          : "";
+        return {
+          ...state,
+          expression: newExpression,
+          answer: newAnswer,
+          error: false,
+        };
+      }
     }
+
     case "operator": {
       if (action.value === "=") {
-        if (state.expression) {
-          return {
-            ...state,
-            expression: evaluate(state.expression),
-            answer: "",
-          };
+        if (containsTwoTerms(state.expression)) {
+          const evaluatedExpression = evaluate(state.expression);
+          if (evaluatedExpression === "") {
+            return {
+              ...state,
+              error: true,
+            };
+          } else {
+            return {
+              ...state,
+              expression: evaluatedExpression,
+              answer: "",
+              overwrite: true,
+            };
+          }
         }
         return state;
       }
@@ -88,6 +115,7 @@ function reducer(state: State, action: Action) {
       return {
         ...state,
         expression: state.expression + action.value,
+        overwrite: false,
       };
     }
     case "function": {
@@ -97,6 +125,7 @@ function reducer(state: State, action: Action) {
             ...state,
             expression: "",
             answer: "",
+            error: false,
           };
         }
         case "back": {
@@ -118,22 +147,29 @@ export default function App() {
     expression: "",
     answer: "",
     overwrite: false,
+    error: false,
   });
 
   function handleKeyDown(e: KeyboardEvent) {
-    const key = e.key;
+    let key = e.key;
     if (key === "Backspace") {
       dispatch({ type: "function", value: "back" });
       return;
     }
-    let button;
-    if (key === "Enter" || key === " ") {
-      button = document.getElementById("=");
-    } else {
-      button = document.getElementById(key.toUpperCase());
+    if (key === "Escape") {
+      key = "C"
     }
+    if (key === "Enter" || key === " ") {
+      key = "="
+    }
+
+    const button = document.getElementById(key.toUpperCase());
     if (button) {
       button.click();
+      button.classList.add(buttonStyles.active);
+      setTimeout(() => {
+        button?.classList.remove(buttonStyles.active);
+      }, 200);
     }
   }
 
