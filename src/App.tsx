@@ -106,14 +106,14 @@ function reducer(state: State, action: Action) {
         case "back": {
           const newExpression = state.expression.slice(0, -1);
           const newAnswer = containsTwoTerms(newExpression)
-          ? evaluate(newExpression)
-          : "";
-        return {
-          ...state,
-          expression: newExpression,
-          answer: newAnswer,
-          error: false,
-        };
+            ? evaluate(newExpression)
+            : "";
+          return {
+            ...state,
+            expression: newExpression,
+            answer: newAnswer,
+            error: false,
+          };
         }
       }
       return state;

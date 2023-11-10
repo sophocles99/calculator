@@ -1,6 +1,7 @@
 .display {
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   justify-content: flex-end;
   align-items: flex-end;
   width: 100%;
