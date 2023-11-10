@@ -2,8 +2,15 @@ import { useEffect, useReducer } from "react";
 import Header from "./components/Header";
 import Display from "./components/Display";
 import Buttons from "./components/Buttons";
+import buttonDefs from "./buttonDefs";
 import styles from "./styles/App.module.css";
 import {default as buttonStyles} from './styles/Button.module.css'
+
+const keyMap: { [index: string]: string } = {
+  "Enter": "=",
+  "Spacebar": "=",
+  "Escape": "C"  
+}
 
 const OPERATORS_REGEX = /[\+\-\*\/%]/;
 
@@ -86,6 +93,7 @@ function reducer(state: State, action: Action) {
         overwrite: false,
       };
     }
+
     case "function": {
       switch (action.value) {
         case "C": {
@@ -119,20 +127,20 @@ export default function App() {
   });
 
   function handleKeyDown(e: KeyboardEvent) {
+    
     let key = e.key;
+    if (Object.keys(keyMap).includes(key)) {
+      key = keyMap[key]
+    }
     if (key === "Backspace") {
       dispatch({ type: "function", value: "back" });
+      e.preventDefault();
       return;
-    }
-    if (key === "Escape") {
-      key = "C"
-    }
-    if (key === "Enter" || key === " ") {
-      key = "="
     }
 
     const button = document.getElementById(key.toUpperCase());
     if (button) {
+      e.preventDefault()
       button.click();
       button.classList.add(buttonStyles.active);
       setTimeout(() => {
@@ -152,122 +160,7 @@ export default function App() {
       <Display state={state} />
       <Buttons
         dispatch={dispatch}
-        buttonDefs={[
-          {
-            value: "C",
-            type: "function",
-            icon: false,
-            double: false,
-          },
-          {
-            value: "+-",
-            type: "function",
-            icon: true,
-            double: false,
-          },
-          {
-            value: "%",
-            type: "function",
-            icon: true,
-            double: false,
-          },
-          {
-            value: "/",
-            type: "operator",
-            icon: true,
-            double: false,
-          },
-          {
-            value: "7",
-            type: "number",
-            icon: false,
-            double: false,
-          },
-          {
-            value: "8",
-            type: "number",
-            icon: false,
-            double: false,
-          },
-          {
-            value: "9",
-            type: "number",
-            icon: false,
-            double: false,
-          },
-          {
-            value: "*",
-            type: "operator",
-            icon: true,
-            double: false,
-          },
-          {
-            value: "4",
-            type: "number",
-            icon: false,
-            double: false,
-          },
-          {
-            value: "5",
-            type: "number",
-            icon: false,
-            double: false,
-          },
-          {
-            value: "6",
-            type: "number",
-            icon: false,
-            double: false,
-          },
-          {
-            value: "-",
-            type: "operator",
-            icon: false,
-            double: false,
-          },
-          {
-            value: "1",
-            type: "number",
-            icon: false,
-            double: false,
-          },
-          {
-            value: "2",
-            type: "number",
-            icon: false,
-            double: false,
-          },
-          {
-            value: "3",
-            type: "number",
-            icon: false,
-            double: false,
-          },
-          {
-            value: "+",
-            type: "operator",
-            icon: true,
-            double: false,
-          },
-          {
-            value: "0",
-            type: "number",
-            icon: false,
-            double: true,
-          },
-          {
-            value: ".",
-            type: "number",
-            icon: false,
-            double: false,
-          },
-          {
-            value: "=",
-            type: "operator",
-            icon: true,
-            double: false,
-          },
-        ]}
+        buttonDefs={buttonDefs}
       />
     </main>
   );
