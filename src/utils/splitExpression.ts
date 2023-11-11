@@ -5,24 +5,28 @@ export default function splitExpression(
   container: HTMLDivElement
 ) {
   const containerWidth = container.getBoundingClientRect().width;
-  const testLine = document.createElement("p");
-  testLine.classList.add(styles.testLine);
-  document.body.appendChild(testLine);
+
+  const DOMtestLine = document.createElement("p");
+  DOMtestLine.classList.add(styles.testLine);
+  document.body.appendChild(DOMtestLine);
+
   const expressionLines = [];
   let currentLine = "";
+
   for (let i = expression.length - 1; i >= 0; i--) {
     currentLine = expression[i] + currentLine;
-    testLine.textContent = currentLine;
-    const testLineWidth = testLine.getBoundingClientRect().width;
+    DOMtestLine.textContent = currentLine;
+
+    const testLineWidth = DOMtestLine.getBoundingClientRect().width;
     if (testLineWidth > containerWidth) {
       expressionLines.unshift(currentLine.slice(1));
       currentLine = currentLine[0];
-      testLine.textContent = "";
+      DOMtestLine.textContent = "";
     }
   }
   if (currentLine) {
     expressionLines.unshift(currentLine);
   }
-  document.body.removeChild(testLine);
+  document.body.removeChild(DOMtestLine);
   return expressionLines;
 }
