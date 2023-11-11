@@ -1,4 +1,5 @@
 import styles from "../styles/Display.module.css";
+import Expression from "./Expression";
 
 type DisplayProps = {
   state: State;
@@ -11,7 +12,7 @@ export default function Display({ state }: DisplayProps) {
 
   return (
     <section className={styles.display}>
-      <p className={styles.expression}>{displayExpression}</p>
+      <Expression>{displayExpression}</Expression>
       <p className={`${styles.answer} ${error ? styles.error : ""}`}>
         {error ? "Format error" : answer}
       </p>
