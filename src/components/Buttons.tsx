@@ -1,13 +1,13 @@
 import styles from "../styles/Buttons.module.css";
 import Button from "./Button";
 import { Dispatch } from "react";
+import buttonDefs from "../buttonDefs";
 
 type ButtonsProps = {
-  buttonDefs: ButtonDefType[];
   dispatch: Dispatch<Action>;
 };
 
-export default function Buttons({ buttonDefs, dispatch }: ButtonsProps) {
+export default function Buttons({ dispatch }: ButtonsProps) {
   return (
     <section className={styles.buttons}>
       {buttonDefs.map((buttonDef, index) => {

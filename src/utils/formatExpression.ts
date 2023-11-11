@@ -1,4 +1,4 @@
-const OPERATORS_REGEX = /[\+\-\*\/%]/;
+import { OPERATORS_REGEX } from "./calculatorReducer";
 const EXPRESSION_REGEX = /([0-9.]+)|([\+\-\*\/%]+)/g;
 
 export default function formatExpression(expression: string) {
