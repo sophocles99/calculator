@@ -2,12 +2,42 @@ import { useEffect, useRef, useState } from "react";
 import styles from "../styles/Expression.module.css";
 
 type ExpressionProps = {
-  children: string;
+  expression: string;
 };
 
-export default function Expression({ children }: ExpressionProps) {
+const OPERATORS_REGEX = /[\+\-\*\/%]/;
+const EXPRESSION_REGEX = /([0-9.]+)|([\+\-\*\/%]+)/g;
+
+export default function Expression({ expression }: ExpressionProps) {
+  const [expDisplay, setExpDisplay] = useState<string>("");
+  const [expDisplayLines, setExpDisplayLines] = useState<string[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [expressionLines, setExpressionLines] = useState<string[]>([]);
+
+  useEffect(() => {
+    const expSplit = expression.match(EXPRESSION_REGEX);
+    if (expSplit) {
+      const expSplitFormatted = expSplit.map((term) => {
+        if (!OPERATORS_REGEX.test(term)) {
+          const trailingPoint = term.slice(-1) === ".";
+          let [integerPart, decimalPart] = term.split(".");
+          integerPart = new Intl.NumberFormat("en-GB").format(
+            parseInt(integerPart)
+          );
+          if (decimalPart) {
+            return [integerPart, decimalPart].join(".");
+          } else {
+            return integerPart + (trailingPoint ? "." : "");
+          }
+        } else {
+          return term.replace("/", "\u00F7").replace("*", "\u00d7");
+        }
+      });
+      console.log(expSplitFormatted);
+      setExpDisplay(expSplitFormatted.join(""));
+    } else {
+      setExpDisplay("");
+    }
+  }, [expression]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -18,8 +48,8 @@ export default function Expression({ children }: ExpressionProps) {
       document.body.appendChild(testLine);
       const expressionLines = [];
       let currentLine = "";
-      for (let i = children.length - 1; i >= 0; i--) {
-        currentLine = children[i] + currentLine;
+      for (let i = expDisplay.length - 1; i >= 0; i--) {
+        currentLine = expDisplay[i] + currentLine;
         testLine.textContent = currentLine;
         const testLineWidth = testLine.getBoundingClientRect().width;
         if (testLineWidth > containerWidth) {
@@ -32,13 +62,13 @@ export default function Expression({ children }: ExpressionProps) {
         expressionLines.unshift(currentLine);
       }
       document.body.removeChild(testLine);
-      setExpressionLines(expressionLines);
+      setExpDisplayLines(expressionLines);
     }
-  }, [children]);
+  }, [expDisplay]);
 
   return (
     <div ref={containerRef} className={styles.expressionContainer}>
-      {expressionLines.map((line, index) => (
+      {expDisplayLines.map((line, index) => (
         <p key={index} className={styles.expression}>
           {line}
         </p>
