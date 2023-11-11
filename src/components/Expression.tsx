@@ -10,7 +10,6 @@ export default function Expression({ children }: ExpressionProps) {
   const [expressionLines, setExpressionLines] = useState<string[]>([]);
 
   useEffect(() => {
-    console.log(children.length)
     const container = containerRef.current;
     if (container) {
       const containerWidth = container.getBoundingClientRect().width;
