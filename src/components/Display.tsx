@@ -1,11 +1,10 @@
+import { useContext } from "react";
 import styles from "../styles/Display.module.css";
 import Expression from "./Expression";
+import { CalculatorLogicContext } from "../contexts/CalculatorLogic";
 
-type DisplayProps = {
-  state: State;
-};
-
-export default function Display({ state }: DisplayProps) {
+export default function Display() {
+  const { state } = useContext(CalculatorLogicContext);
   const { expression, answer, error } = state;
 
   return (

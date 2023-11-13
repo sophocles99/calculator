@@ -18,14 +18,14 @@ type ButtonWithoutIconDefType = {
 
 type ButtonDefType = ButtonWithIconDefType | ButtonWithoutIconDefType;
 
-type State = {
+type StateType = {
   expression: string;
   answer: string;
   overwrite: boolean;
   error: boolean;
 };
 
-type Action = {
+type ActionType = {
   type: ButtonType;
-  value: string;
+  payload: string;
 };
