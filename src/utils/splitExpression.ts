@@ -21,8 +21,7 @@ export default function splitExpression(
     if (testLineWidth > containerWidth) {
       const commaIndex = currentLine.indexOf(",");
       if (commaIndex >= 0 && commaIndex <= 3) {
-        console.log(currentLine, currentLine.slice(3), currentLine.slice(0, commaIndex))
-        expressionLines.unshift(currentLine.slice(3));
+        expressionLines.unshift(currentLine.slice(commaIndex + 1));
         currentLine = currentLine.slice(0, commaIndex + 1);
       } else {
         expressionLines.unshift(currentLine.slice(1));
