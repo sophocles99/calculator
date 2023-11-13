@@ -1,8 +1,8 @@
-import { useEffect, useReducer } from "react";
+import { useContext, useEffect } from "react";
+import { CalculatorLogicContext } from "./contexts/CalculatorLogic";
 import Header from "./components/Header";
 import Display from "./components/Display";
 import Buttons from "./components/Buttons";
-import calculatorReducer from "./utils/calculatorReducer";
 import styles from "./styles/App.module.css";
 import { default as buttonStyles } from "./styles/Button.module.css";
 
@@ -13,12 +13,7 @@ const keyMap: { [index: string]: string } = {
 };
 
 export default function App() {
-  const [state, dispatch] = useReducer(calculatorReducer, {
-    expression: "",
-    answer: "",
-    overwrite: false,
-    error: false,
-  });
+  const { dispatch } = useContext(CalculatorLogicContext);
 
   function handleKeyDown(e: KeyboardEvent) {
     let key = e.key;
@@ -26,7 +21,7 @@ export default function App() {
       key = keyMap[key];
     }
     if (key === "Backspace") {
-      dispatch({ type: "function", value: "back" });
+      dispatch({ type: "function", payload: "back" });
       e.preventDefault();
       return;
     }
@@ -50,8 +45,8 @@ export default function App() {
   return (
     <main className={styles.App}>
       <Header />
-      <Display state={state} />
-      <Buttons dispatch={dispatch} />
+      <Display />
+      <Buttons />
     </main>
   );
 }

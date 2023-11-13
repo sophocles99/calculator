@@ -1,4 +1,4 @@
-import { OPERATORS_REGEX } from "./calculatorReducer";
+import { OPERATORS_REGEX } from "./calculatorLogicReducer";
 const EXPRESSION_REGEX = /([0-9.]+)|([\+\-\*\/%]+)/g;
 
 export default function formatExpression(expression: string) {
@@ -23,7 +23,6 @@ export default function formatExpression(expression: string) {
         return term.replace("/", "\u00F7").replace("*", "\u00d7");
       }
     });
-    console.log(expressionSplitFormatted);
     return expressionSplitFormatted.join("");
   } else {
     return "";

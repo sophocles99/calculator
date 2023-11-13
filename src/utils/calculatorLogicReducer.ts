@@ -17,10 +17,10 @@ function evaluate(localExpression: string) {
   }
 }
 
-export default function calculatorReducer(state: State, action: Action) {
+export default function calculatorLogicReducer(state: StateType, action: ActionType) {
   switch (action.type) {
     case "number": {
-      if (action.value === ".") {
+      if (action.payload === ".") {
         const terms = state.expression.split(OPERATORS_REGEX);
         const currentTerm = terms[terms.length - 1];
         if (currentTerm.includes(".")) {
@@ -30,13 +30,13 @@ export default function calculatorReducer(state: State, action: Action) {
       if (state.overwrite) {
         return {
           ...state,
-          expression: action.value,
+          expression: action.payload,
           answer: "",
           overwrite: false,
           error: false,
         };
       } else {
-        const newExpression = state.expression + action.value;
+        const newExpression = state.expression + action.payload;
         const newAnswer = containsTwoTerms(newExpression)
           ? evaluate(newExpression)
           : "";
@@ -50,7 +50,7 @@ export default function calculatorReducer(state: State, action: Action) {
     }
 
     case "operator": {
-      if (action.value === "=") {
+      if (action.payload === "=") {
         if (containsTwoTerms(state.expression)) {
           const evaluatedExpression = evaluate(state.expression);
           if (evaluatedExpression === "") {
@@ -74,13 +74,13 @@ export default function calculatorReducer(state: State, action: Action) {
       }
       return {
         ...state,
-        expression: state.expression + action.value,
+        expression: state.expression + action.payload,
         overwrite: false,
       };
     }
 
     case "function": {
-      switch (action.value) {
+      switch (action.payload) {
         case "C": {
           return {
             ...state,
