@@ -4,18 +4,15 @@ import formatExpression from "../utils/formatExpression";
 import splitExpression from "../utils/splitExpression";
 import styles from "../styles/Expression.module.css";
 
-type ExpressionProps = {
-  expression: string;
-};
-
-export default function Expression({ expression }: ExpressionProps) {
-  const { dispatch } = useContext(CalculatorLogicContext);
+export default function Expression() {
+  const { state, dispatch } = useContext(CalculatorLogicContext);
   const [expressionFormattedLines, setExpressionFormattedLines] = useState<
     string[]
   >([]);
   const containerRef = useRef<HTMLDivElement>(null);
   const container = containerRef.current;
 
+  const {expression} = state;
   const expressionFormatted = formatExpression(expression);
 
   useEffect(() => {
