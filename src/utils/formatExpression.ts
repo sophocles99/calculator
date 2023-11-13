@@ -22,7 +22,7 @@ export default function formatExpression(expression: string) {
           return integerPart + (trailingPoint ? "." : "");
         }
       } else {
-        return term.replace("/", "\u00F7").replace("*", "\u00d7");
+        return term;
       }
     });
     return expressionSplitFormatted.join("");
