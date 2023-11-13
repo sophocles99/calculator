@@ -43,9 +43,8 @@ export default function splitExpression(
   if (currentLine) {
     expressionLines.unshift(currentLine);
   }
-
   expressionLines = expressionLines.map((line) =>
-  line.replace("/", "\u00F7").replace("*", "\u00d7")
+    line.replaceAll("/", "\u00F7").replaceAll("*", "\u00d7")
   );
   document.body.removeChild(DOMTestLine);
   return [expressionLines, isFull];
