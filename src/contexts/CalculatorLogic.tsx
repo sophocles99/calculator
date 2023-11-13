@@ -14,14 +14,16 @@ const initialState: StateType = {
   expression: "",
   answer: "",
   overwrite: false,
+  full: false,
   error: false,
 };
 
-const defaultContextValue = {
+const defaultContextValue: ContextValueType = {
   state: {
     expression: "",
     answer: "",
     overwrite: false,
+    full: false,
     error: false,
   },
   dispatch: () => {},

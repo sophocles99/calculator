@@ -10,10 +10,12 @@ export default function formatExpression(expression: string) {
         const trailingPoint = term.slice(-1) === ".";
 
         let [integerPart, decimalPart] = term.split(".");
-        integerPart = new Intl.NumberFormat("en-GB").format(
-          parseInt(integerPart)
-        );
-
+        const integerPartNumber = parseInt(integerPart);
+        if (integerPartNumber) {
+          integerPart = new Intl.NumberFormat("en-GB").format(
+            integerPartNumber
+          );
+        }
         if (decimalPart) {
           return [integerPart, decimalPart].join(".");
         } else {

@@ -17,35 +17,38 @@ function evaluate(localExpression: string) {
   }
 }
 
-export default function calculatorLogicReducer(state: StateType, action: ActionType) {
+export default function calculatorLogicReducer(
+  state: StateType,
+  action: ActionType
+) {
+  const returnState = { ...state };
   switch (action.type) {
     case "number": {
+      if (state.full) {
+        return returnState;
+      }
       if (action.payload === ".") {
         const terms = state.expression.split(OPERATORS_REGEX);
         const currentTerm = terms[terms.length - 1];
-        if (currentTerm.includes(".")) {
-          return state;
+        if (currentTerm.includes(".") && !state.overwrite) {
+          break;
         }
       }
       if (state.overwrite) {
-        return {
-          ...state,
-          expression: action.payload,
-          answer: "",
-          overwrite: false,
-          error: false,
-        };
+        returnState.expression = action.payload;
+        returnState.answer = "";
+        returnState.overwrite = false;
+        returnState.error = false;
+        break;
       } else {
         const newExpression = state.expression + action.payload;
         const newAnswer = containsTwoTerms(newExpression)
           ? evaluate(newExpression)
           : "";
-        return {
-          ...state,
-          expression: newExpression,
-          answer: newAnswer,
-          error: false,
-        };
+        returnState.expression = newExpression;
+        returnState.answer = newAnswer;
+        returnState.error = false;
+        break;
       }
     }
 
@@ -54,55 +57,55 @@ export default function calculatorLogicReducer(state: StateType, action: ActionT
         if (containsTwoTerms(state.expression)) {
           const evaluatedExpression = evaluate(state.expression);
           if (evaluatedExpression === "") {
-            return {
-              ...state,
-              error: true,
-            };
+            returnState.error = true;
+            break;
           } else {
-            return {
-              ...state,
-              expression: evaluatedExpression,
-              answer: "",
-              overwrite: true,
-            };
+            returnState.expression = evaluatedExpression;
+            returnState.answer = "";
+            returnState.overwrite = true;
+            break;
           }
         }
-        return state;
       }
       if (OPERATORS_REGEX.test(state.expression.slice(-1))) {
-        state.expression = state.expression.slice(0, -1);
+        returnState.expression = returnState.expression.slice(0, -1);
       }
-      return {
-        ...state,
-        expression: state.expression + action.payload,
-        overwrite: false,
-      };
+      if (state.full) {
+        return returnState;
+      }
+      returnState.expression = state.expression + action.payload;
+      returnState.overwrite = false;
+      break;
     }
 
     case "function": {
       switch (action.payload) {
         case "C": {
-          return {
-            ...state,
-            expression: "",
-            answer: "",
-            error: false,
-          };
+          returnState.expression = "";
+          returnState.answer = "";
+          returnState.overwrite = false;
+          returnState.full = false;
+          returnState.error = false;
+          break;
         }
         case "back": {
           const newExpression = state.expression.slice(0, -1);
           const newAnswer = containsTwoTerms(newExpression)
             ? evaluate(newExpression)
             : "";
-          return {
-            ...state,
-            expression: newExpression,
-            answer: newAnswer,
-            error: false,
-          };
+          returnState.expression = newExpression;
+          returnState.answer = newAnswer;
+          returnState.overwrite = false;
+          returnState.full = false;
+          returnState.error = false;
+          break;
+        }
+        case "full": {
+          returnState.expression = state.expression.slice(0, -1);
+          returnState.full = true;
         }
       }
-      return state;
     }
   }
+  return returnState;
 }

@@ -22,6 +22,7 @@ type StateType = {
   expression: string;
   answer: string;
   overwrite: boolean;
+  full: boolean;
   error: boolean;
 };
 

@@ -4,7 +4,7 @@ import styles from "../styles/Expression.module.css";
 export default function splitExpression(
   expression: string,
   container: HTMLDivElement
-) {
+): [string[], boolean] {
   const containerWidth = container.getBoundingClientRect().width;
 
   const DOMTestLine = document.createElement("p");
@@ -13,6 +13,7 @@ export default function splitExpression(
 
   const expressionLines = [];
   let currentLine = "";
+  let isFull = false;
 
   for (let i = expression.length - 1; i >= 0; i--) {
     currentLine = expression[i] + currentLine;
@@ -22,6 +23,7 @@ export default function splitExpression(
     if (testLineWidth > containerWidth) {
       const operatorIndex = currentLine.search(OPERATORS_REGEX);
       const commaIndex = currentLine.indexOf(",");
+
       if (operatorIndex >= 0 && operatorIndex <= 3) {
         expressionLines.unshift(currentLine.slice(operatorIndex));
         currentLine = currentLine.slice(0, operatorIndex);
@@ -33,10 +35,14 @@ export default function splitExpression(
         currentLine = currentLine[0];
       }
     }
+    if (expressionLines.length === 3) {
+      isFull = true;
+      break;
+    }
   }
   if (currentLine) {
     expressionLines.unshift(currentLine);
   }
   document.body.removeChild(DOMTestLine);
-  return expressionLines;
+  return [expressionLines, isFull];
 }
