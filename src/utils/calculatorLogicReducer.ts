@@ -77,8 +77,12 @@ export default function calculatorLogicReducer(
         }
       }
       if (OPERATORS_REGEX.test(state.expression.slice(-1))) {
+        if (state.expression.length === 1) {
+          if (action.payload !== "-") {
+            break;
+          }
+        }
         returnState.expression = returnState.expression.slice(0, -1);
-        console.log("OPERATORS_REGEX matched");
       }
       if (state.full) {
         break;
