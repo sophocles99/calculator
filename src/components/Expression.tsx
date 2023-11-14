@@ -1,8 +1,8 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { CalculatorLogicContext } from "../contexts/CalculatorLogic";
 import formatExpression from "../utils/formatExpression";
-import splitExpression from "../utils/splitExpression";
-import styles from "../styles/Expression.module.css";
+import fitExpression from "../utils/fitExpression";
+import styles from "../styles/Display.module.css";
 
 export default function Expression() {
   const { state, dispatch } = useContext(CalculatorLogicContext);
@@ -11,13 +11,13 @@ export default function Expression() {
   >([]);
   const containerRef = useRef<HTMLDivElement>(null);
   const container = containerRef.current;
-
+  
   const {expression} = state;
   const expressionFormatted = formatExpression(expression);
 
   useEffect(() => {
     if (container) {
-      const [newExpressionFormattedLines, isFull] = splitExpression(
+      const [newExpressionFormattedLines, isFull] = fitExpression(
         expressionFormatted,
         container
       );

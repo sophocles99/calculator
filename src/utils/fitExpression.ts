@@ -1,14 +1,14 @@
 import { OPERATORS_REGEX } from "./calculatorLogicReducer";
-import styles from "../styles/Expression.module.css";
+import styles from "../styles/Display.module.css";
 
-export default function splitExpression(
+export default function fitExpression(
   expression: string,
   container: HTMLDivElement
 ): [string[], boolean] {
   const containerWidth = container.getBoundingClientRect().width;
 
   const DOMTestLine = document.createElement("p");
-  DOMTestLine.classList.add(styles.testLine);
+  DOMTestLine.classList.add(styles.testExpressionLine);
   document.body.appendChild(DOMTestLine);
 
   let expressionLines = [];
@@ -46,6 +46,8 @@ export default function splitExpression(
   expressionLines = expressionLines.map((line) =>
     line.replaceAll("/", "\u00F7").replaceAll("*", "\u00d7")
   );
+
   document.body.removeChild(DOMTestLine);
+
   return [expressionLines, isFull];
 }
