@@ -10,12 +10,19 @@ export default function formatAnswer(
   DOMTestLine.classList.add(styles.testAnswerLine);
   document.body.appendChild(DOMTestLine);
 
+  let currentDecimals = 11;
   let currentPrecision = 17;
   let answerFormatted = "";
 
   do {
-    currentPrecision--;
-    answerFormatted = parseFloat(answer).toPrecision(currentPrecision);
+    if (currentDecimals > 1) {
+      currentDecimals--;
+      answerFormatted = parseFloat(answer).toFixed(currentDecimals);
+    } else {
+      currentPrecision--;
+      answerFormatted = parseFloat(answer).toPrecision(currentDecimals);
+    }
+    console.log(answerFormatted);
     DOMTestLine.textContent = answerFormatted;
   } while (DOMTestLine.getBoundingClientRect().width > containerWidth);
 
