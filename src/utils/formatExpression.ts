@@ -1,5 +1,5 @@
 import { OPERATORS_REGEX } from "./calculatorLogicReducer";
-const EXPRESSION_REGEX = /([0-9.]+)|([\+\-\*\/%]+)/g;
+const EXPRESSION_REGEX = /(-?\d*\.?\d+(?:[eE][-+]?\d+)?|[-+*\/])/g;
 
 export default function formatExpression(expression: string) {
   const expressionSplit = expression.match(EXPRESSION_REGEX);

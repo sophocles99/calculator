@@ -17,7 +17,6 @@ export default function formatAnswer(
     currentPrecision--;
     answerFormatted = parseFloat(answer).toPrecision(currentPrecision);
     DOMTestLine.textContent = answerFormatted;
-    console.log(answerFormatted);
   } while (DOMTestLine.getBoundingClientRect().width > containerWidth);
 
   // Strip trailing decimal zeros

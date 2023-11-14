@@ -1,4 +1,4 @@
-export const OPERATORS_REGEX = /[\+\-\*\/%]/;
+export const OPERATORS_REGEX = /[-+*\/%]/;
 
 function containsTwoTerms(localExpression: string) {
   const terms = localExpression.split(OPERATORS_REGEX);
