@@ -6,13 +6,13 @@ const buttonDefs: ButtonDefType[] = [
     double: false,
   },
   {
-    value: "+-",
+    value: "back",
     type: "function",
     icon: true,
     double: false,
   },
   {
-    value: "%",
+    value: "+-",
     type: "function",
     icon: true,
     double: false,

@@ -1,4 +1,4 @@
-type IconType = "+-" | "%" | "/" | "*" | "-" | "+" | "=";
+type IconType = "back" | "+-" | "/" | "*" | "-" | "+" | "=";
 
 type ButtonType = "number" | "operator" | "function";
 

@@ -2,8 +2,8 @@ import { useContext } from "react";
 import { CalculatorLogicContext } from "../contexts/CalculatorLogic";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faDeleteLeft,
   faPlusMinus,
-  faPercent,
   faDivide,
   faTimes,
   faMinus,
@@ -13,8 +13,8 @@ import {
 import styles from "../styles/Button.module.css";
 
 const icons = {
+  "back": faDeleteLeft,
   "+-": faPlusMinus,
-  "%": faPercent,
   "/": faDivide,
   "*": faTimes,
   "-": faMinus,
