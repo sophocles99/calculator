@@ -122,6 +122,21 @@ export default function calculatorLogicReducer(
           returnState.error = false;
           break;
         }
+        case "+-": {
+          let newExpression;
+          if (state.expression[0] === "-") {
+            newExpression = returnState.expression.slice(1);
+          } else {
+            newExpression = "-" + returnState.expression;
+          }
+          const newAnswer = containsTwoTerms(newExpression)
+            ? evaluate(newExpression)
+            : "";
+          returnState.expression = newExpression;
+          returnState.answer = newAnswer;
+          returnState.overwrite = false;
+          break;
+        }
         case "full": {
           returnState.expression = state.expression.slice(0, -1);
           returnState.full = true;
