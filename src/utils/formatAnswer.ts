@@ -22,7 +22,6 @@ export default function formatAnswer(
       currentPrecision--;
       answerFormatted = parseFloat(answer).toPrecision(currentDecimals);
     }
-    console.log(answerFormatted);
     DOMTestLine.textContent = answerFormatted;
   } while (DOMTestLine.getBoundingClientRect().width > containerWidth);
 
