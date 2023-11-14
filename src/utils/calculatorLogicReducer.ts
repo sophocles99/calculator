@@ -2,6 +2,10 @@ export const OPERATORS_REGEX = /[-+*\/%]/;
 
 function containsTwoTerms(localExpression: string) {
   const terms = localExpression.split(OPERATORS_REGEX);
+  const startsWithMinus = localExpression[0] === "-";
+  if (startsWithMinus) {
+    terms.shift();
+  }
   return terms.length >= 2 && terms[0] && terms[1];
 }
 
@@ -25,7 +29,7 @@ export default function calculatorLogicReducer(
   switch (action.type) {
     case "number": {
       if (state.full) {
-        return returnState;
+        break;
       }
       if (action.payload === ".") {
         const terms = state.expression.split(OPERATORS_REGEX);
@@ -67,13 +71,19 @@ export default function calculatorLogicReducer(
           }
         }
       }
+      if (state.expression.length === 0) {
+        if (action.payload !== "-") {
+          break;
+        }
+      }
       if (OPERATORS_REGEX.test(state.expression.slice(-1))) {
         returnState.expression = returnState.expression.slice(0, -1);
+        console.log("OPERATORS_REGEX matched");
       }
       if (state.full) {
-        return returnState;
+        break;
       }
-      returnState.expression = state.expression + action.payload;
+      returnState.expression = returnState.expression + action.payload;
       returnState.overwrite = false;
       break;
     }
@@ -89,6 +99,14 @@ export default function calculatorLogicReducer(
           break;
         }
         case "back": {
+          if (state.overwrite) {
+            returnState.expression = "";
+            returnState.answer = "";
+            returnState.overwrite = false;
+            returnState.full = false;
+            returnState.error = false;
+            break;
+          }
           const newExpression = state.expression.slice(0, -1);
           const newAnswer = containsTwoTerms(newExpression)
             ? evaluate(newExpression)
