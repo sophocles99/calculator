@@ -1,4 +1,4 @@
-import { OPERATORS_REGEX } from "./calculatorLogicReducer";
+import { CONTAINS_OPERATOR_REGEX } from "./calculatorLogicReducer";
 import styles from "../styles/Display.module.css";
 
 export default function fitExpression(
@@ -21,7 +21,7 @@ export default function fitExpression(
 
     const testLineWidth = DOMTestLine.getBoundingClientRect().width;
     if (testLineWidth > containerWidth) {
-      const operatorIndex = currentLine.search(OPERATORS_REGEX);
+      const operatorIndex = currentLine.search(CONTAINS_OPERATOR_REGEX);
       const commaIndex = currentLine.indexOf(",");
 
       if (operatorIndex >= 0 && operatorIndex <= 3) {

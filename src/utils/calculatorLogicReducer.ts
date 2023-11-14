@@ -1,7 +1,8 @@
-export const OPERATORS_REGEX = /[-+*\/%]/;
+export const CONTAINS_OPERATOR_REGEX = /[-+*/%]/;
+export const IS_OPERATOR_REGEX = /^[-+*\/%]$/;
 
 function containsTwoTerms(localExpression: string) {
-  const terms = localExpression.split(OPERATORS_REGEX);
+  const terms = localExpression.split(CONTAINS_OPERATOR_REGEX);
   const startsWithMinus = localExpression[0] === "-";
   if (startsWithMinus) {
     terms.shift();
@@ -10,7 +11,7 @@ function containsTwoTerms(localExpression: string) {
 }
 
 function evaluate(localExpression: string) {
-  if (OPERATORS_REGEX.test(localExpression.slice(-1))) {
+  if (IS_OPERATOR_REGEX.test(localExpression.slice(-1))) {
     localExpression = localExpression.slice(0, -1);
   }
   try {
@@ -32,7 +33,7 @@ export default function calculatorLogicReducer(
         break;
       }
       if (action.payload === ".") {
-        const terms = state.expression.split(OPERATORS_REGEX);
+        const terms = state.expression.split(CONTAINS_OPERATOR_REGEX);
         const currentTerm = terms[terms.length - 1];
         if (currentTerm.includes(".") && !state.overwrite) {
           break;
@@ -70,13 +71,14 @@ export default function calculatorLogicReducer(
             break;
           }
         }
+        break;
       }
       if (state.expression.length === 0) {
         if (action.payload !== "-") {
           break;
         }
       }
-      if (OPERATORS_REGEX.test(state.expression.slice(-1))) {
+      if (IS_OPERATOR_REGEX.test(state.expression.slice(-1))) {
         if (state.expression.length === 1) {
           if (action.payload !== "-") {
             break;
