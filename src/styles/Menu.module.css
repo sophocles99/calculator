@@ -1,0 +1,14 @@
+.menu {
+  position: absolute;
+  top: 1.75rem;
+  width: 50%;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  background-color: #e4e3e7;
+}
+
+.menu li {
+  display: flex;
+  align-items: center;
+  height: 3rem;
+}
