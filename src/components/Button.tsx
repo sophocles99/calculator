@@ -13,7 +13,7 @@ import {
 import styles from "../styles/Button.module.css";
 
 const icons = {
-  "back": faDeleteLeft,
+  back: faDeleteLeft,
   "+-": faPlusMinus,
   "/": faDivide,
   "*": faTimes,
@@ -31,7 +31,9 @@ export default function Button({ value, type, icon, double }: ButtonDefType) {
       className={`${styles.button} ${styles[type]} ${
         double ? styles.doubleWidth : ""
       }`}
-      onClick={() => dispatch({ type, payload: value })}
+      onClick={() => {
+        dispatch({ type, payload: value });
+      }}
     >
       {icon ? <FontAwesomeIcon icon={icons[value]} /> : value}
     </button>

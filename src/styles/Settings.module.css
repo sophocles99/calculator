@@ -1,0 +1,10 @@
+.settings {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100vh;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  background-color: green;
+}
