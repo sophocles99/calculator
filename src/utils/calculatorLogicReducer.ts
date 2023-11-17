@@ -23,7 +23,7 @@ function evaluate(localExpression: string) {
 }
 
 export default function calculatorLogicReducer(
-  state: StateType,
+  state: CalculatorStateType,
   action: ActionType
 ) {
   const returnState = { ...state };

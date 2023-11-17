@@ -1,24 +1,12 @@
-import { createContext, Dispatch, ReactNode, useReducer } from "react";
+import { createContext, Dispatch, useReducer } from "react";
 import calculatorLogicReducer from "../utils/calculatorLogicReducer";
 
-type ContextValueType = {
-  state: StateType;
+type CalculatorContextValueType = {
+  state: CalculatorStateType;
   dispatch: Dispatch<ActionType>;
 };
 
-type ChildrenType = {
-  children: ReactNode;
-};
-
-const initialState: StateType = {
-  expression: "",
-  answer: "",
-  overwrite: false,
-  full: false,
-  error: false,
-};
-
-const defaultContextValue: ContextValueType = {
+const defaultContextValue: CalculatorContextValueType = {
   state: {
     expression: "",
     answer: "",
@@ -29,15 +17,22 @@ const defaultContextValue: ContextValueType = {
   dispatch: () => {},
 };
 
+const initialState: CalculatorStateType = {
+  expression: "",
+  answer: "",
+  overwrite: false,
+  full: false,
+  error: false,
+};
+
 export const CalculatorLogicContext =
-  createContext<ContextValueType>(defaultContextValue);
+  createContext<CalculatorContextValueType>(defaultContextValue);
 
 export default function CalculatorLogicProvider({ children }: ChildrenType) {
   const [state, dispatch] = useReducer(calculatorLogicReducer, initialState);
-  const value = { state, dispatch };
 
   return (
-    <CalculatorLogicContext.Provider value={value}>
+    <CalculatorLogicContext.Provider value={{ state, dispatch }}>
       {children}
     </CalculatorLogicContext.Provider>
   );

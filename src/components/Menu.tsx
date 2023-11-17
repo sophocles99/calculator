@@ -1,37 +1,34 @@
-import { Dispatch, MouseEvent, SetStateAction, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
+import { ModalsContext } from "../contexts/Modals";
+import Overlay from "./Overlay";
 import styles from "../styles/Menu.module.css";
 
-type MenuProps = {
-  setIsMenuOpen: Dispatch<SetStateAction<boolean>>;
-  setIsSettingsOpen: Dispatch<SetStateAction<boolean>>;
-};
-
-export default function Menu({ setIsMenuOpen, setIsSettingsOpen }: MenuProps) {
+export default function Menu() {
   const menuRef = useRef<HTMLDivElement>(null);
+  const { setModalsState } = useContext(ModalsContext);
 
-  function handleOutsideClick(event: MouseEventInit) {
-    const e = event as unknown as MouseEvent;
+  function handleSettingsClick(e: React.MouseEvent) {
+    e.stopPropagation();
+    setModalsState({ isMenuOpen: false, isSettingsOpen: true });
+  }
+
+  function handleOutsideClick(e: MouseEvent) {
     if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
-      setIsMenuOpen(false);
+      setModalsState((previous) => {
+        return { ...previous, isMenuOpen: false };
+      });
     }
   }
 
-  function handleSettingsClick() {
-    setIsSettingsOpen(true);
-    setIsMenuOpen(false);
-  }
-
   useEffect(() => {
-    setTimeout(() => {
-      document.addEventListener("click", handleOutsideClick);
-    }, 0);
+    document.addEventListener("click", handleOutsideClick);
     return () => {
       document.removeEventListener("click", handleOutsideClick);
     };
   }, []);
 
   return (
-    <div className={styles.menuOverlay}>
+    <Overlay>
       <div ref={menuRef} className={styles.menu}>
         <ul>
           <li>
@@ -42,6 +39,6 @@ export default function Menu({ setIsMenuOpen, setIsSettingsOpen }: MenuProps) {
           </li>
         </ul>
       </div>
-    </div>
+    </Overlay>
   );
 }

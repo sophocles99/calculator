@@ -1,13 +1,3 @@
-.menuOverlay {
-  position: absolute;
-  top: -0.25rem;
-  left: -0.25rem;
-  width: 19rem;
-  height: 38rem;
-  border-radius: 1.5rem;
-  background-color: #686eae60;
-}
-
 .menu {
   position: absolute;
   top: 2.5rem;

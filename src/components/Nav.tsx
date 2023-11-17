@@ -1,25 +1,18 @@
-import { useState } from "react";
+import { useContext } from "react";
+import { ModalsContext } from "../contexts/Modals";
+import MenuButton from "./MenuButton";
 import Menu from "./Menu";
 import Settings from "./Settings";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import styles from "../styles/Nav.module.css";
 
 export default function Nav() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const { modalsState, setModalsState } = useContext(ModalsContext);
+  const { isMenuOpen, isSettingsOpen } = modalsState;
 
   return (
     <nav className={styles.nav}>
-      <button
-        className={styles.menuButton}
-        onClick={() => setIsMenuOpen((previous: boolean) => !previous)}
-      >
-        <FontAwesomeIcon icon={faEllipsisVertical} />
-      </button>
-      {isMenuOpen && (
-        <Menu setIsMenuOpen={setIsMenuOpen} setIsSettingsOpen={setIsSettingsOpen} />
-      )}
+      <MenuButton setModalsState={setModalsState} />
+      {isMenuOpen && <Menu />}
       {isSettingsOpen && <Settings />}
     </nav>
   );

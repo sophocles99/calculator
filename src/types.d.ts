@@ -1,3 +1,12 @@
+type ChildrenType = {
+  children: ReactNode;
+};
+
+type ModalsStateType = {
+  isMenuOpen: boolean;
+  isSettingsOpen: boolean;
+};
+
 type IconType = "back" | "+-" | "/" | "*" | "-" | "+" | "=";
 
 type ButtonType = "number" | "operator" | "function";
@@ -18,7 +27,7 @@ type ButtonWithoutIconDefType = {
 
 type ButtonDefType = ButtonWithIconDefType | ButtonWithoutIconDefType;
 
-type StateType = {
+type CalculatorStateType = {
   expression: string;
   answer: string;
   overwrite: boolean;
