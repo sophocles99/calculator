@@ -1,3 +1,7 @@
+:root {
+  --speed: 200ms;
+}
+
 .App {
   position: relative;
   width: 19rem;

@@ -1,6 +1,7 @@
 import { useContext, useEffect, useRef } from "react";
 import { ModalsContext } from "../contexts/Modals";
 import Overlay from "./Overlay";
+import Switch from "./Switch";
 import styles from "../styles/Settings.module.css";
 
 export default function Settings() {
@@ -29,10 +30,23 @@ export default function Settings() {
     <Overlay>
       <div className={styles.settingsContainer}>
         <div ref={settingsRef} className={styles.settings}>
-          <p>Theme</p>
-          <p>Dark / Light</p>
-          <p>Sound Effects</p>
-          <p>On / Off</p>
+          <h2>Settings</h2>
+          <Switch
+            name="theme"
+            title="Theme"
+            uncheckedLabel="Dark"
+            checkedLabel="Light"
+            isChecked={true}
+            onChange={() => {}}
+          />
+          <Switch
+            name="sound-effects"
+            title="Sound Effects"
+            uncheckedLabel="Off"
+            checkedLabel="On"
+            isChecked={true}
+            onChange={() => {}}
+          />
         </div>
       </div>
     </Overlay>
