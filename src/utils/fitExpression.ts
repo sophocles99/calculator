@@ -1,5 +1,5 @@
 import { CONTAINS_OPERATOR_REGEX } from "./calculatorLogicReducer";
-import styles from "../styles/Display.module.css";
+import styles from "../styles/Expression.module.css";
 
 export default function fitExpression(
   expression: string,

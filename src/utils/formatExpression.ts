@@ -1,31 +1,14 @@
+import addCommaSeparators from "./addCommaSeparators";
 import { IS_OPERATOR_REGEX } from "./calculatorLogicReducer";
 const EXPRESSION_REGEX = /(-?\d*\.?\d+(?:[eE][-+]?\d+)?|[-+*\/\.])/g;
 
 export default function formatExpression(expression: string) {
   const expressionSplit = expression.match(EXPRESSION_REGEX);
+
   if (expressionSplit) {
-    const expressionSplitFormatted = expressionSplit.map((term) => {
-      if (!IS_OPERATOR_REGEX.test(term)) {
-        const trailingPoint = term.slice(-1) === ".";
-
-        let [integerPart, decimalPart] = term.split(".");
-        const integerPartNumber = parseInt(integerPart);
-        
-        if (integerPartNumber) {
-          integerPart = new Intl.NumberFormat("en-GB").format(
-            integerPartNumber
-          );
-        }
-
-        if (decimalPart) {
-          return [integerPart, decimalPart].join(".");
-        } else {
-          return integerPart + (trailingPoint ? "." : "");
-        }
-      } else {
-        return term;
-      }
-    });
+    const expressionSplitFormatted = expressionSplit.map((term) =>
+      !IS_OPERATOR_REGEX.test(term) ? addCommaSeparators(term) : term
+    );
     return expressionSplitFormatted.join("");
   } else {
     return "";

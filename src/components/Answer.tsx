@@ -1,24 +1,17 @@
-import { useContext, useRef } from "react";
+import { useContext } from "react";
 import { CalculatorLogicContext } from "../contexts/CalculatorLogic";
-import formatAnswer from "../utils/formatAnswer";
+import addCommaSeparators from "../utils/addCommaSeparators";
 import styles from "../styles/Answer.module.css";
 
 export default function Answer() {
   const { state } = useContext(CalculatorLogicContext);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const container = containerRef.current;
-
   const { answer, error } = state;
-  let answerFormatted = "";
-
-  if (answer && container) {
-    answerFormatted = formatAnswer(answer, container);
-  }
+  const answerFormatted = addCommaSeparators(answer);
 
   return (
-    <div ref={containerRef} className={styles.answerContainer}>
+    <div className={styles.answerContainer}>
       <p className={`${styles.answer} ${error ? styles.error : ""}`}>
-        {error ? "Format error" : answerFormatted}
+        {error ? "Format error" : answer ? answerFormatted : ""}
       </p>
     </div>
   );

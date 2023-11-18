@@ -1,5 +1,9 @@
+import { format } from "mathjs";
+
 export const CONTAINS_OPERATOR_REGEX = /[-+*/%]/;
 export const IS_OPERATOR_REGEX = /^[-+*\/%]$/;
+const MAX_PRECISION = 14;
+const EXPONENT_LIMIT = 15;
 
 function containsTwoTerms(localExpression: string) {
   const terms = localExpression.split(CONTAINS_OPERATOR_REGEX);
@@ -15,7 +19,10 @@ function evaluate(localExpression: string) {
     localExpression = localExpression.slice(0, -1);
   }
   try {
-    return eval(localExpression).toString();
+    return format(eval(localExpression), {
+      precision: MAX_PRECISION,
+      upperExp: EXPONENT_LIMIT,
+    });
   } catch (error) {
     console.log(error);
     return "";
