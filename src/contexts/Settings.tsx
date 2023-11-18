@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, createContext, useState } from "react";
+import { createContext, Dispatch, SetStateAction, useState } from "react";
 
 type SettingsContextValueType = {
   settingsState: SettingsStateType;

@@ -13,9 +13,10 @@ export default function MenuButton({ setModalsState }: MenuButtonProps) {
       className={styles.menuButton}
       onClick={(e) => {
         e.stopPropagation(); // to prevent click triggering handleOutsideClick in Menu
-        setModalsState((previous) => {
-          return { ...previous, isMenuOpen: !previous.isMenuOpen };
-        });
+        setModalsState((previous) => ({
+          ...previous,
+          isMenuOpen: !previous.isMenuOpen,
+        }));
       }}
     >
       <FontAwesomeIcon icon={faEllipsisVertical} />

@@ -1,13 +1,15 @@
-import { useContext, useEffect, useRef } from "react";
-import { ModalsContext } from "../contexts/Modals";
+import { Dispatch, SetStateAction, useContext, useEffect, useRef } from "react";
 import Overlay from "./Overlay";
 import Switch from "./Switch";
 import styles from "../styles/Settings.module.css";
 import { SettingsContext } from "../contexts/Settings";
 
-export default function Settings() {
+type SettingsProps = {
+  setModalsState: Dispatch<SetStateAction<ModalsStateType>>;
+};
+
+export default function Settings({ setModalsState }: SettingsProps) {
   const settingsRef = useRef<HTMLDivElement>(null);
-  const { setModalsState } = useContext(ModalsContext);
   const { settingsState, setSettingsState } = useContext(SettingsContext);
   const { theme, sound } = settingsState;
 

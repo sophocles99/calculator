@@ -1,11 +1,13 @@
-import { useContext, useEffect, useRef } from "react";
-import { ModalsContext } from "../contexts/Modals";
+import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import Overlay from "./Overlay";
 import styles from "../styles/Menu.module.css";
 
-export default function Menu() {
+type MenuProps = {
+  setModalsState: Dispatch<SetStateAction<ModalsStateType>>;
+};
+
+export default function Menu({ setModalsState }: MenuProps) {
   const menuRef = useRef<HTMLDivElement>(null);
-  const { setModalsState } = useContext(ModalsContext);
 
   function handleSettingsClick(e: React.MouseEvent) {
     e.stopPropagation();
@@ -14,9 +16,7 @@ export default function Menu() {
 
   function handleOutsideClick(e: MouseEvent) {
     if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
-      setModalsState((previous) => {
-        return { ...previous, isMenuOpen: false };
-      });
+      setModalsState((previous) => ({ ...previous, isMenuOpen: false }));
     }
   }
 
