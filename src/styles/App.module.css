@@ -43,5 +43,5 @@
   border: 0.25rem solid var(--bg-accent);
   color: var(--text-colour);
   background-color: var(--bg-colour);
-  transition: var(--speed);
+  transition: calc(var(--speed) * 2);
 }
