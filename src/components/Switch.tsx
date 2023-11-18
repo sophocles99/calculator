@@ -7,7 +7,7 @@ type SwitchProps = {
   uncheckedLabel: string;
   checkedLabel: string;
   isChecked: boolean;
-  onChange: () => void;
+  onChange: (newValue: boolean) => void;
 };
 
 export default function Switch({
@@ -22,7 +22,7 @@ export default function Switch({
 
   const handleChange = () => {
     setChecked(previous => {
-      // onChange(!previous)
+      onChange(!previous)
       return !previous
     })
   }
