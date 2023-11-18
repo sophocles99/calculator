@@ -1,4 +1,5 @@
 import { createContext, Dispatch, SetStateAction, useState } from "react";
+import retrieveSettings from "../utils/retrieveSettings";
 
 type SettingsContextValueType = {
   settingsState: SettingsStateType;
@@ -12,10 +13,8 @@ const defaultContextValue: SettingsContextValueType = {
   },
   setSettingsState: () => {},
 };
-const initialState: SettingsStateType = {
-  theme: "light",
-  sound: "on",
-};
+
+const initialState: SettingsStateType = retrieveSettings();
 
 export const SettingsContext = createContext(defaultContextValue);
 
