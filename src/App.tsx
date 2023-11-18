@@ -4,7 +4,7 @@ import { handleKeyDownDispatch, handleKeyUp } from "./utils/handleKeyEvents";
 import Header from "./components/Header";
 import Display from "./components/Display";
 import Buttons from "./components/Buttons";
-import styles from "./styles/App.module.css";
+import styles from "./App.module.css";
 import { SettingsContext } from "./contexts/Settings";
 
 export default function App() {

@@ -1,0 +1,23 @@
+.answerContainer {
+  width: 100%;
+}
+
+.answer {
+  font-size: 1.5rem;
+  line-height: 1.1;
+  width: 100%;
+  height: 1.5rem;
+  text-align: right;
+  text-overflow: ellipsis;
+}
+
+.error {
+  color: var(--error);
+  font-style: italic;
+}
+
+.testAnswerLine {
+  position: absolute;
+  left: -9999px;
+  font-size: 1.5rem;
+}

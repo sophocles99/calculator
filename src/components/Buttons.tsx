@@ -1,6 +1,6 @@
 import styles from "../styles/Buttons.module.css";
 import Button from "./Button";
-import buttonDefs from "../buttonDefs";
+import buttonDefs from "../utils/buttonDefs";
 
 export default function Buttons() {
   return (

@@ -1,0 +1,21 @@
+.expressionContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  width: 100%;
+  overflow: hidden;
+  height: 6.6rem;
+}
+
+.expression {
+  width: 100%;
+  font-size: 2rem;
+  line-height: 1.1;
+  text-align: right;
+}
+
+.testExpressionLine {
+  position: absolute;
+  left: -9999px;
+  font-size: 2rem;
+}
