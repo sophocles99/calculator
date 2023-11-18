@@ -16,5 +16,12 @@ body {
   align-items: center;
   height: 100vh;
   font-family: Kanit, sans-serif;
-  background-image: linear-gradient(to top, #303946, #475265, #626c86, #7f87a8, #9ea2cb);
+  background-image: linear-gradient(
+    to top,
+    #54536f,
+    #7a7890,
+    #a2a0b1,
+    #cbc9d5,
+    #f5f4f9
+  );
 }
