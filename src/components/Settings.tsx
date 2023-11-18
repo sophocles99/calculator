@@ -11,7 +11,6 @@ type SettingsProps = {
 export default function Settings({ setModalsState }: SettingsProps) {
   const settingsRef = useRef<HTMLDivElement>(null);
   const { settingsState, setSettingsState } = useContext(SettingsContext);
-  const { theme, sound } = settingsState;
 
   function handleOutsideClick(e: MouseEvent) {
     if (
@@ -49,15 +48,13 @@ export default function Settings({ setModalsState }: SettingsProps) {
     <Overlay>
       <div className={styles.settingsContainer}>
         <div ref={settingsRef} className={styles.settings}>
-          <p>Current theme: {theme}</p>
-          <p>Sound: {sound}</p>
           <h2>Settings</h2>
           <Switch
             name="theme"
             title="Theme"
             uncheckedLabel="Dark"
             checkedLabel="Light"
-            isChecked={true}
+            isChecked={settingsState.theme === "light" ? true : false}
             onChange={handleThemeChange}
           />
           <Switch
@@ -65,7 +62,7 @@ export default function Settings({ setModalsState }: SettingsProps) {
             title="Sound Effects"
             uncheckedLabel="Off"
             checkedLabel="On"
-            isChecked={true}
+            isChecked={settingsState.sound === "on" ? true : false}
             onChange={handleSoundChange}
           />
         </div>

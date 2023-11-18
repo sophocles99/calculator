@@ -8,6 +8,7 @@
   padding: 0.5rem 0.75rem;
   border-radius: 1rem;
   background-color: #b9e1bd;
+  color: var(--display-text-colour);
   box-shadow: inset 4px 4px 4px 1px #a5c9aa;
 }
 
@@ -41,7 +42,7 @@
 }
 
 .error {
-  color: #d45e66;
+  color: var(--error);
   font-style: italic;
 }
 

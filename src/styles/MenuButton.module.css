@@ -8,10 +8,11 @@
   border-radius: 50%;
   font-size: 1.1rem;
   color: inherit;
-  transition: background-color 200ms;
+  background-color: var(--bg-colour);
+  transition: background-color var(--speed);
 }
 
 .menuButton:hover,
 .menuButton:active {
-  background-color: #e4e3e7;
+  background-color: var(--bg-accent);
 }

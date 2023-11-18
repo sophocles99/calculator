@@ -8,24 +8,37 @@
   color: white;
 }
 
-.button:active, .active {
-  box-shadow: inset 2px 2px 4px 1px rgba(0, 0, 0, 0.24); 
-  transition: 0.2s step-start;
+.button:active,
+.active {
+  box-shadow: inset 2px 2px 4px 1px rgba(0, 0, 0, 0.24);
+  transition: var(--speed) step-start;
 }
 
 .function {
-  background: linear-gradient(-45deg, #686eae, #999ece);
-  border-color: #787db0;
+  background: linear-gradient(
+    -45deg,
+    var(--function-button-start),
+    var(--function-button-end)
+  );
+  border-color: var(--function-button-border);
 }
 
 .operator {
-  background: linear-gradient(-45deg, #d5626a, #eb949e);
-  border-color: #d17d84;
+  background: linear-gradient(
+    -45deg,
+    var(--operator-button-start),
+    var(--operator-button-end)
+  );
+  border-color: var(--operator-button-border);
 }
 
 .number {
-  background: linear-gradient(-45deg, #64637f, #9a99ad);
-  border-color: #7c7c9c;
+  background: linear-gradient(
+    -45deg,
+    var(--number-button-start),
+    var(--number-button-end)
+  );
+  border-color: var(--number-button-border);
 }
 
 .doubleWidth {

@@ -1,13 +1,37 @@
 :root {
-  --speed: 200ms;
+  --speed: 300ms;
+  --display-text-colour: #373737;
+  --error: #d45e66;
 }
 
 :root .light {
   --bg-colour: #f5f4f9;
+  --bg-accent: #e4e3e7;
+  --text-colour: #404040;
+  --function-button-start: #686eae;
+  --function-button-end: #999ece;
+  --function-button-border: #787db0;
+  --operator-button-start: #d5626a;
+  --operator-button-end: #eb949e;
+  --operator-button-border: #d17d84;
+  --number-button-start: #64637f;
+  --number-button-end: #9a99ad;
+  --number-button-border: #7c7c9c;
 }
 
 :root .dark {
-  --bg-colour: red;
+  --bg-colour: #515162;
+  --bg-accent: #3b4c58;
+  --text-colour: #e7e7e7;
+  --function-button-start: #585e9e;
+  --function-button-end: #898ebe;
+  --function-button-border: #686da0;
+  --operator-button-start: #c5525a;
+  --operator-button-end: #db848e;
+  --operator-button-border: #c16d74;
+  --number-button-start: #54536f;
+  --number-button-end: #8a899d;
+  --number-button-border: #6c6c8c;
 }
 
 .App {
@@ -16,7 +40,8 @@
   height: 38rem;
   padding: 0.75rem;
   border-radius: 1.5rem;
-  border: 0.25rem solid #e4e3e7;
-  color: #444;
+  border: 0.25rem solid var(--bg-accent);
+  color: var(--text-colour);
   background-color: var(--bg-colour);
+  transition: var(--speed);
 }

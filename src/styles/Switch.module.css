@@ -27,19 +27,19 @@
   width: var(--width);
   height: var(--height);
   border-radius: var(--border-radius);
-  background-color: #c4c3c7;
+  background-color: var(--bg-accent);
 }
 
 .switchFill::after {
   content: "";
   position: absolute;
-  top: 0;
+  top: -1px;
   left: 0;
   width: var(--height);
   height: var(--height);
   border-radius: var(--border-radius);
-  border: 1px solid #c4c3c7;
-  background-color: white;
+  border: 1px solid var(--bg-accent);
+  background-color: var(--text-colour);
   transition: transform var(--speed);
 }
 
