@@ -5,9 +5,12 @@ import Header from "./components/Header";
 import Display from "./components/Display";
 import Buttons from "./components/Buttons";
 import styles from "./styles/App.module.css";
+import { SettingsContext } from "./contexts/Settings";
 
 export default function App() {
   const { dispatch } = useContext(CalculatorLogicContext);
+  const { settingsState } = useContext(SettingsContext);
+  const { theme } = settingsState;
 
   function handleKeyDown(e: KeyboardEvent) {
     handleKeyDownDispatch(e, dispatch);
@@ -23,7 +26,7 @@ export default function App() {
   }, []);
 
   return (
-    <main className={styles.App}>
+    <main className={`${styles.App} ${styles[theme]}`}>
       <Header />
       <Display />
       <Buttons />

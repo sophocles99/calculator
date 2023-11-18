@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../styles/Switch.module.css";
 
 type SwitchProps = {
@@ -20,24 +20,21 @@ export default function Switch({
 }: SwitchProps) {
   const [checked, setChecked] = useState(isChecked);
 
-  const handleChange = () => {
-    setChecked(previous => {
-      onChange(!previous)
-      return !previous
-    })
-  }
+  useEffect(() => {
+    onChange(checked);
+  }, [checked]);
 
   return (
     <label htmlFor={name} className={styles.switchContainer}>
-      <h3 className={styles.switchName}>
-        {title}
-      </h3>
+      <h3 className={styles.switchName}>{title}</h3>
       <input
         type="checkbox"
         id={name}
         className={styles.switchInput}
         checked={checked}
-        onChange={handleChange}
+        onChange={() => {
+          setChecked((previous) => !previous);
+        }}
       />
       <div className={styles.switchRow}>
         {uncheckedLabel}
