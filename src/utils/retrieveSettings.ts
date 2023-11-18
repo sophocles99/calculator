@@ -7,13 +7,13 @@ export default function retrieveSettings(): SettingsStateType {
   const storedSettingsJSON = localStorage.getItem("settings");
   if (storedSettingsJSON) {
     const storedSettingsParsed = JSON.parse(storedSettingsJSON);
-    const { storedTheme, storedSound } = storedSettingsParsed;
+    const { theme, sound } = storedSettingsParsed;
     if (
-      (storedTheme === "light" || storedTheme === "dark") &&
-      (storedSound === "on" || storedSound === "off")
+      (theme === "light" || theme === "dark") &&
+      (sound === "on" || sound === "off")
     ) {
-      settingsState.theme = storedTheme;
-      settingsState.sound = storedSound;
+      settingsState.theme = theme;
+      settingsState.sound = sound;
     }
   }
 
