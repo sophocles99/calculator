@@ -1,7 +1,9 @@
 import { format } from "mathjs";
+import splitExpression from "./splitExpression";
 
 export const CONTAINS_OPERATOR_REGEX = /[-+*/%]/;
 export const IS_OPERATOR_REGEX = /^[-+*\/%]$/;
+const MAX_NUM_LENGTH = 15;
 const MAX_PRECISION = 14;
 const EXPONENT_LIMIT = 15;
 
@@ -14,12 +16,12 @@ function containsTwoTerms(localExpression: string) {
   return terms.length >= 2 && terms[0] && terms[1];
 }
 
-function evaluate(localExpression: string) {
-  if (IS_OPERATOR_REGEX.test(localExpression.slice(-1))) {
-    localExpression = localExpression.slice(0, -1);
+function evaluate(exp: string) {
+  if (IS_OPERATOR_REGEX.test(exp.slice(-1))) {
+    exp = exp.slice(0, -1);
   }
   try {
-    return format(eval(localExpression), {
+    return format(eval(exp), {
       precision: MAX_PRECISION,
       upperExp: EXPONENT_LIMIT,
     });
@@ -33,10 +35,14 @@ export default function calculatorLogicReducer(
   state: CalculatorStateType,
   action: ActionType
 ) {
-  const returnState = { ...state };
+  const newState = { ...state };
+
   switch (action.type) {
     case "number": {
-      if (state.full) {
+      const currentExpSplit = splitExpression(state.expression);
+      const currentToken = currentExpSplit[currentExpSplit.length - 1];
+
+      if (state.error === "Full") {
         break;
       }
       if (action.payload === ".") {
@@ -47,19 +53,27 @@ export default function calculatorLogicReducer(
         }
       }
       if (state.overwrite) {
-        returnState.expression = action.payload;
-        returnState.answer = "";
-        returnState.overwrite = false;
-        returnState.error = false;
+        newState.expression = action.payload;
+        newState.answer = "";
+        newState.overwrite = false;
+        newState.error = "";
+        break;
+      } else if (
+        currentToken &&
+        !IS_OPERATOR_REGEX.test(currentToken) &&
+        action.payload !== "." &&
+        currentToken.replace(".", "").length >= MAX_NUM_LENGTH
+      ) {
+        newState.error = "Maximum length";
         break;
       } else {
         const newExpression = state.expression + action.payload;
         const newAnswer = containsTwoTerms(newExpression)
           ? evaluate(newExpression)
           : "";
-        returnState.expression = newExpression;
-        returnState.answer = newAnswer;
-        returnState.error = false;
+        newState.expression = newExpression;
+        newState.answer = newAnswer;
+        newState.error = "";
         break;
       }
     }
@@ -69,12 +83,12 @@ export default function calculatorLogicReducer(
         if (containsTwoTerms(state.expression)) {
           const evaluatedExpression = evaluate(state.expression);
           if (evaluatedExpression === "") {
-            returnState.error = true;
+            newState.error = "Invalid expression";
             break;
           } else {
-            returnState.expression = evaluatedExpression;
-            returnState.answer = "";
-            returnState.overwrite = true;
+            newState.expression = evaluatedExpression;
+            newState.answer = "";
+            newState.overwrite = true;
             break;
           }
         }
@@ -91,67 +105,64 @@ export default function calculatorLogicReducer(
             break;
           }
         }
-        returnState.expression = returnState.expression.slice(0, -1);
+        newState.expression = newState.expression.slice(0, -1);
       }
-      if (state.full) {
+      if (state.error === "Full") {
         break;
       }
-      returnState.expression = returnState.expression + action.payload;
-      returnState.overwrite = false;
+      newState.expression = newState.expression + action.payload;
+      newState.overwrite = false;
       break;
     }
 
     case "function": {
       switch (action.payload) {
         case "C": {
-          returnState.expression = "";
-          returnState.answer = "";
-          returnState.overwrite = false;
-          returnState.full = false;
-          returnState.error = false;
+          newState.expression = "";
+          newState.answer = "";
+          newState.overwrite = false;
+          newState.error = "";
           break;
         }
         case "back": {
           if (state.overwrite) {
-            returnState.expression = "";
-            returnState.answer = "";
-            returnState.overwrite = false;
-            returnState.full = false;
-            returnState.error = false;
+            newState.expression = "";
+            newState.answer = "";
+            newState.overwrite = false;
+            newState.error = "";
             break;
           }
           const newExpression = state.expression.slice(0, -1);
           const newAnswer = containsTwoTerms(newExpression)
             ? evaluate(newExpression)
             : "";
-          returnState.expression = newExpression;
-          returnState.answer = newAnswer;
-          returnState.overwrite = false;
-          returnState.full = false;
-          returnState.error = false;
+          newState.expression = newExpression;
+          newState.answer = newAnswer;
+          newState.overwrite = false;
+          newState.error = "";
           break;
         }
         case "+-": {
           let newExpression;
           if (state.expression[0] === "-") {
-            newExpression = returnState.expression.slice(1);
+            newExpression = newState.expression.slice(1);
           } else {
-            newExpression = "-" + returnState.expression;
+            newExpression = "-" + newState.expression;
           }
           const newAnswer = containsTwoTerms(newExpression)
             ? evaluate(newExpression)
             : "";
-          returnState.expression = newExpression;
-          returnState.answer = newAnswer;
-          returnState.overwrite = false;
+          newState.expression = newExpression;
+          newState.answer = newAnswer;
+          newState.overwrite = false;
           break;
         }
         case "full": {
-          returnState.expression = state.expression.slice(0, -1);
-          returnState.full = true;
+          newState.expression = state.expression.slice(0, -1);
+          newState.error = "Full";
         }
       }
     }
   }
-  return returnState;
+  return newState;
 }

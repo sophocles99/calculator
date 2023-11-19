@@ -11,8 +11,7 @@ const defaultContextValue: CalculatorContextValueType = {
     expression: "",
     answer: "",
     overwrite: false,
-    full: false,
-    error: false,
+    error: "",
   },
   dispatch: () => {},
 };
@@ -21,8 +20,7 @@ const initialState: CalculatorStateType = {
   expression: "",
   answer: "",
   overwrite: false,
-  full: false,
-  error: false,
+  error: "",
 };
 
 export const CalculatorLogicContext =
