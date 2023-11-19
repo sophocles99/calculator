@@ -16,8 +16,7 @@ type CalculatorStateType = {
   expression: string;
   answer: string;
   overwrite: boolean;
-  full: boolean;
-  error: boolean;
+  error: "" | "Full" | "Maximum length" | "Invalid expression";
 };
 
 type ActionType = {

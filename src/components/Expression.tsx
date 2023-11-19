@@ -1,5 +1,6 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { CalculatorLogicContext } from "../contexts/CalculatorLogic";
+import splitExpression from "../utils/splitExpression";
 import formatExpression from "../utils/formatExpression";
 import fitExpression from "../utils/fitExpression";
 import styles from "../styles/Expression.module.css";
@@ -9,31 +10,28 @@ export default function Expression() {
     state: { expression },
     dispatch,
   } = useContext(CalculatorLogicContext);
-  const [expressionFormattedLines, setExpressionFormattedLines] = useState<
-    string[]
-  >([]);
+  const [expLines, setExpLines] = useState<string[]>([""]);
   const containerRef = useRef<HTMLDivElement>(null);
   const container = containerRef.current;
-
-  // const {expression} = state;
-  const expressionFormatted = formatExpression(expression);
+  const expSplit = splitExpression(expression);
+  const expFormatted = formatExpression(expSplit);
 
   useEffect(() => {
     if (container) {
-      const [newExpressionFormattedLines, isFull] = fitExpression(
-        expressionFormatted,
+      const [newExpressionLines, isFull] = fitExpression(
+        expFormatted,
         container
       );
       if (isFull) {
         dispatch({ type: "function", payload: "full" });
       }
-      setExpressionFormattedLines(newExpressionFormattedLines);
+      setExpLines(newExpressionLines);
     }
   }, [expression]);
 
   return (
     <div ref={containerRef} className={styles.expressionContainer}>
-      {expressionFormattedLines.map((line, index) => (
+      {expLines.map((line, index) => (
         <p key={index} className={styles.expression}>
           {line}
         </p>

@@ -11,7 +11,7 @@ export default function Answer() {
   return (
     <div className={styles.answerContainer}>
       <p className={`${styles.answer} ${error ? styles.error : ""}`}>
-        {error ? "Format error" : answer ? answerFormatted : ""}
+        {error ? error : answer ? answerFormatted : ""}
       </p>
     </div>
   );
