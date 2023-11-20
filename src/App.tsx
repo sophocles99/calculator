@@ -1,5 +1,4 @@
 import { useContext, useEffect } from "react";
-import { CalculatorContext } from "./contexts/Calculator";
 import { handleKeyDownDispatch, handleKeyUp } from "./utils/handleKeyEvents";
 import Header from "./components/Header";
 import Display from "./components/Display";
@@ -8,12 +7,11 @@ import styles from "./App.module.css";
 import { SettingsContext } from "./contexts/Settings";
 
 export default function App() {
-  const { dispatch } = useContext(CalculatorContext);
   const { settingsState } = useContext(SettingsContext);
   const { theme } = settingsState;
 
   function handleKeyDown(e: KeyboardEvent) {
-    handleKeyDownDispatch(e, dispatch);
+    handleKeyDownDispatch(e);
   }
 
   useEffect(() => {

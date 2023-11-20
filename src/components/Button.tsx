@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { SettingsContext } from "../contexts/Settings";
 import { CalculatorContext } from "../contexts/Calculator";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -22,8 +23,26 @@ const icons = {
   "=": faEquals,
 };
 
+const playClick = () => {
+  const clickSound = new Audio("clickSound.wav");
+  clickSound.play();
+};
+
+const playEquals = () => {
+  const equalsSound = new Audio("equalsSound.wav");
+  equalsSound.play();
+};
+
+const playSound = (value: string) => {
+  if (value === "=") playEquals();
+  else playClick();
+};
+
 export default function Button({ value, type, icon, double }: ButtonDefType) {
   const { dispatch } = useContext(CalculatorContext);
+  const {
+    settingsState: { sound },
+  } = useContext(SettingsContext);
 
   return (
     <button
@@ -32,6 +51,7 @@ export default function Button({ value, type, icon, double }: ButtonDefType) {
         double ? styles.doubleWidth : ""
       }`}
       onClick={() => {
+        sound === "on" && playSound(value);
         dispatch({ type, payload: value });
       }}
     >

@@ -1,28 +1,20 @@
-import { Dispatch } from "react";
 import { default as buttonStyles } from "../styles/Button.module.css";
 
 const keyMap: { [index: string]: string } = {
+  " ": "=",
+  Backspace: "back",
+  c: "C",
   Enter: "=",
-  Spacebar: "=",
   Escape: "C",
 };
 
-export function handleKeyDownDispatch(
-  e: KeyboardEvent,
-  dispatch: Dispatch<ActionType>
-) {
+export function handleKeyDownDispatch(e: KeyboardEvent) {
   let key = e.key;
   if (Object.keys(keyMap).includes(key)) {
     key = keyMap[key];
   }
 
-  if (key === "Backspace") {
-    dispatch({ type: "function", payload: "back" });
-    e.preventDefault();
-    return;
-  }
-
-  const button = document.getElementById(key.toUpperCase());
+  const button = document.getElementById(key);
   if (button) {
     e.preventDefault();
     button.click();
@@ -38,7 +30,7 @@ export function handleKeyUp(e: KeyboardEvent) {
     key = keyMap[key];
   }
 
-  const button = document.getElementById(key.toUpperCase());
+  const button = document.getElementById(key);
   if (button) {
     e.preventDefault();
     button.classList.remove(buttonStyles.active);
