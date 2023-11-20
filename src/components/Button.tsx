@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { CalculatorLogicContext } from "../contexts/CalculatorLogic";
+import { CalculatorContext } from "../contexts/Calculator";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faDeleteLeft,
@@ -23,7 +23,7 @@ const icons = {
 };
 
 export default function Button({ value, type, icon, double }: ButtonDefType) {
-  const { dispatch } = useContext(CalculatorLogicContext);
+  const { dispatch } = useContext(CalculatorContext);
 
   return (
     <button

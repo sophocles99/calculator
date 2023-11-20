@@ -1,12 +1,12 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { CalculatorLogicContext } from "../contexts/CalculatorLogic";
+import { CalculatorContext } from "../contexts/Calculator";
 import splitExpression from "../utils/splitExpression";
 import formatExpression from "../utils/formatExpression";
 import fitExpression from "../utils/fitExpression";
 import styles from "../styles/Expression.module.css";
 
 export default function Expression() {
-  const { state, dispatch } = useContext(CalculatorLogicContext);
+  const { state, dispatch } = useContext(CalculatorContext);
   const [expLines, setExpLines] = useState<string[]>([""]);
 
   const containerRef = useRef<HTMLDivElement>(null);

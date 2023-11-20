@@ -31,7 +31,7 @@ function evaluate(exp: string) {
   }
 }
 
-export default function calculatorLogicReducer(
+export default function calculatorReducer(
   state: CalculatorStateType,
   action: ActionType
 ) {
