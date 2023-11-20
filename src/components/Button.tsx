@@ -25,11 +25,13 @@ const icons = {
 
 const playClick = () => {
   const clickSound = new Audio("clickSound.wav");
+  clickSound.preload = "auto";
   clickSound.play();
 };
 
 const playEquals = () => {
   const equalsSound = new Audio("equalsSound.wav");
+  equalsSound.preload = "auto";
   equalsSound.play();
 };
 
