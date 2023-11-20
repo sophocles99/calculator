@@ -89,6 +89,7 @@ export default function calculatorLogicReducer(
             newState.expression = evaluatedExpression;
             newState.answer = "";
             newState.overwrite = true;
+            newState.error = "";
             break;
           }
         }
@@ -129,6 +130,10 @@ export default function calculatorLogicReducer(
             newState.expression = "";
             newState.answer = "";
             newState.overwrite = false;
+            newState.error = "";
+            break;
+          }
+          if (state.error) {
             newState.error = "";
             break;
           }

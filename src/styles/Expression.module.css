@@ -19,3 +19,8 @@
   left: -9999px;
   font-size: 2rem;
 }
+
+/* Must come after .expression and .testExpressionLine to override both */
+.longNum {
+  font-size: 1.575rem;
+}

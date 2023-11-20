@@ -1,39 +1,30 @@
-import { CONTAINS_OPERATOR_REGEX } from "./calculatorLogicReducer";
 import styles from "../styles/Expression.module.css";
 
 export default function fitExpression(
-  expression: string,
-  container: HTMLDivElement
+  exp: string[],
+  container: HTMLDivElement,
+  longNum: boolean
 ): [string[], boolean] {
   const containerWidth = container.getBoundingClientRect().width;
-
   const DOMTestLine = document.createElement("p");
   DOMTestLine.classList.add(styles.testExpressionLine);
+  if (longNum) DOMTestLine.classList.add(styles.longNum);
   document.body.appendChild(DOMTestLine);
 
   let expressionLines = [];
   let currentLine = "";
   let isFull = false;
 
-  for (let i = expression.length - 1; i >= 0; i--) {
-    currentLine = expression[i] + currentLine;
+  for (let i = exp.length - 1; i >= 0; i--) {
+    const currentToken = exp[i];
+    currentLine = currentToken + currentLine;
     DOMTestLine.textContent = currentLine;
-
     const testLineWidth = DOMTestLine.getBoundingClientRect().width;
-    if (testLineWidth > containerWidth) {
-      const operatorIndex = currentLine.search(CONTAINS_OPERATOR_REGEX);
-      const commaIndex = currentLine.indexOf(",");
 
-      if (operatorIndex >= 0 && operatorIndex <= 3) {
-        expressionLines.unshift(currentLine.slice(operatorIndex));
-        currentLine = currentLine.slice(0, operatorIndex);
-      } else if (commaIndex >= 0 && commaIndex <= 3) {
-        expressionLines.unshift(currentLine.slice(commaIndex + 1));
-        currentLine = currentLine.slice(0, commaIndex + 1);
-      } else {
-        expressionLines.unshift(currentLine.slice(1));
-        currentLine = currentLine[0];
-      }
+    if (testLineWidth > containerWidth) {
+      currentLine = currentLine.slice(currentToken.length);
+      expressionLines.unshift(currentLine);
+      currentLine = currentToken;
     }
     if (expressionLines.length === 3) {
       isFull = true;
@@ -43,6 +34,7 @@ export default function fitExpression(
   if (currentLine) {
     expressionLines.unshift(currentLine);
   }
+
   expressionLines = expressionLines.map((line) =>
     line.replaceAll("/", "\u00F7").replaceAll("*", "\u00d7")
   );
