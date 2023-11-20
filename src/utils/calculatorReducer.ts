@@ -17,11 +17,30 @@ function containsTwoTerms(localExpression: string) {
 }
 
 function evaluate(exp: string) {
-  if (IS_OPERATOR_REGEX.test(exp.slice(-1))) {
-    exp = exp.slice(0, -1);
+  let expSplit = splitExpression(exp);
+
+  expSplit = expSplit.map((token) => {
+    if (!IS_OPERATOR_REGEX.test(token)) {
+      if (Number(token) === 0) {
+        return "0";
+      }
+      if (!token.includes(".")) {
+        return token.replace(/^0+/, "");
+      } else {
+        return token.replace(/0{2,}/, "0");
+      }
+    }
+    return token;
+  });
+
+  if (IS_OPERATOR_REGEX.test(expSplit[expSplit.length - 1])) {
+    expSplit.pop();
   }
+
+  const cleanedExp = expSplit.join("");
+
   try {
-    return format(eval(exp), {
+    return format(eval(cleanedExp), {
       precision: MAX_PRECISION,
       upperExp: EXPONENT_LIMIT,
     });
