@@ -7,15 +7,15 @@ import styles from "../styles/Expression.module.css";
 
 export default function Expression() {
   const { state, dispatch } = useContext(CalculatorContext);
-  const [expLines, setExpLines] = useState<string[]>([""]);
+  const [expressionLines, setExpressionLines] = useState<string[]>([""]);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const container = containerRef.current;
   
   const { expression } = state;
-  const expSplit = splitExpression(expression);
-  const longNum = !expSplit.every((token) => token.length <= 12);
-  const expFormatted = formatExpression(expSplit);
+  const expressionSplit = splitExpression(expression);
+  const longNum = !expressionSplit.every((token) => token.length <= 12);
+  const expFormatted = formatExpression(expressionSplit);
 
   useEffect(() => {
     if (container) {
@@ -27,13 +27,13 @@ export default function Expression() {
       if (isFull) {
         dispatch({ type: "function", payload: "full" });
       }
-      setExpLines(newExpLines);
+      setExpressionLines(newExpLines);
     }
   }, [expression]);
 
   return (
     <div ref={containerRef} className={styles.expressionContainer}>
-      {expLines.map((line, index) => (
+      {expressionLines.map((line, index) => (
         <p
           key={index}
           className={`${styles.expression} ${longNum ? styles.longNum : ""}`}

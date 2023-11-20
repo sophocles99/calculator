@@ -1,27 +1,4 @@
-# React + TypeScript + Vite
+# Calculator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Not another calculator?!
+I initially started writing this calculator app to practise my frontend skills by recreating [a design by Fawaz Ahamed](https://dribbble.com/shots/20012393-Calculator-App-UI-Design). As the project developed I realised it was a perfect use case for the useContext and useReducer hooks, and there were some interesting challenges involved in wrapping an expanding mathematical expression upwards from the bottom right, and evaluating the expression live as the user enters it. Handling the many edge cases in the calculator logic function has been a fascinating puzzle too. So although it's unlikely to rock the mathematical world, this calculator app has provided a lot of useful practice in React hooks, TypeScript, and accessing the DOM directly.

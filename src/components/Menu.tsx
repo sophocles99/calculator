@@ -31,9 +31,9 @@ export default function Menu({ setModalsState }: MenuProps) {
     <Overlay>
       <div ref={menuRef} className={styles.menu}>
         <ul>
-          <li>
+          {/* <li>
             <p>History</p>
-          </li>
+          </li> */}
           <li onClick={handleSettingsClick}>
             <p>Settings</p>
           </li>
