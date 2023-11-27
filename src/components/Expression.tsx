@@ -1,46 +1,35 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { CalculatorContext } from "../contexts/Calculator";
-import splitExpression from "../utils/splitExpression";
 import formatExpression from "../utils/formatExpression";
 import fitExpression from "../utils/fitExpression";
 import styles from "../styles/Expression.module.css";
 
 export default function Expression() {
-  const { state, dispatch } = useContext(CalculatorContext);
-  const [expressionLines, setExpressionLines] = useState<string[]>([""]);
-
   const containerRef = useRef<HTMLDivElement>(null);
   const container = containerRef.current;
-  
+  const { state } = useContext(CalculatorContext);
   const { expression } = state;
-  const expressionSplit = splitExpression(expression);
-  const longNum = !expressionSplit.every((token) => token.length <= 12);
-  const expFormatted = formatExpression(expressionSplit);
+  const expressionFormatted = formatExpression(expression);
+  let expressionSize = 1;
+  if (container) {
+    expressionSize = fitExpression(expressionFormatted, container);
+  }
 
   useEffect(() => {
-    if (container) {
-      const [newExpLines, isFull] = fitExpression(
-        expFormatted,
-        container,
-        longNum
-      );
-      if (isFull) {
-        dispatch({ type: "function", payload: "full" });
-      }
-      setExpressionLines(newExpLines);
+    if (container && container.scrollWidth > container.clientWidth) {
+      container.scrollLeft = 9999;
     }
-  }, [expression]);
+  });
 
   return (
     <div ref={containerRef} className={styles.expressionContainer}>
-      {expressionLines.map((line, index) => (
-        <p
-          key={index}
-          className={`${styles.expression} ${longNum ? styles.longNum : ""}`}
-        >
-          {line}
-        </p>
-      ))}
+      <p
+        className={`${styles.expression} ${
+          styles["fontSize" + expressionSize]
+        }`}
+      >
+        {expressionFormatted}
+      </p>
     </div>
   );
 }

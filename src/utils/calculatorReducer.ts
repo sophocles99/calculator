@@ -1,8 +1,8 @@
 import { format } from "mathjs";
 import splitExpression from "./splitExpression";
 
-export const CONTAINS_OPERATOR_REGEX = /[-+*/%]/;
 export const IS_OPERATOR_REGEX = /^[-+*\/%]$/;
+const CONTAINS_OPERATOR_REGEX = /[-+*/%]/;
 const MAX_NUM_LENGTH = 15;
 const MAX_PRECISION = 14;
 const EXPONENT_LIMIT = 15;
@@ -180,10 +180,6 @@ export default function calculatorReducer(
           newState.answer = newAnswer;
           newState.overwrite = false;
           break;
-        }
-        case "full": {
-          newState.expression = state.expression.slice(0, -1);
-          newState.error = "Full";
         }
       }
     }
