@@ -23,16 +23,19 @@ const icons = {
   "=": faEquals,
 };
 
+const clickSounds = Array(5).fill(new Audio("clickSound.wav"));
+const equalsSounds = Array(5).fill(new Audio("equalsSound.wav"));
+let clickSoundIndex = 0;
+let equalsSoundIndex = 0;
+
 const playClick = () => {
-  const clickSound = new Audio("clickSound.wav");
-  clickSound.preload = "auto";
-  clickSound.play();
+  clickSounds[clickSoundIndex].play();
+  clickSoundIndex = (clickSoundIndex + 1) % 5;
 };
 
 const playEquals = () => {
-  const equalsSound = new Audio("equalsSound.wav");
-  equalsSound.preload = "auto";
-  equalsSound.play();
+  equalsSounds[equalsSoundIndex].play();
+  equalsSoundIndex = (equalsSoundIndex + 1) % 5;
 };
 
 const playSound = (value: string) => {
