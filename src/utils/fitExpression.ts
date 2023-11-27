@@ -12,7 +12,7 @@ export default function fitExpression(
   DOMTestLine.textContent = expression;
   document.body.appendChild(DOMTestLine);
 
-  while (newExpressionSize < 8) {
+  while (newExpressionSize < 9) {
     DOMTestLine.classList.add(styles["fontSize" + newExpressionSize]);
     const testLineWidth = DOMTestLine.getBoundingClientRect().width;
     if (testLineWidth <= containerWidth) break;

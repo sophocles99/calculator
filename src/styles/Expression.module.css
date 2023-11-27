@@ -10,7 +10,7 @@
 }
 
 /* Chrome/Safari/Webkit */
-.expressionContainer::-webkit-scrollbar { 
+.expressionContainer::-webkit-scrollbar {
   background: transparent;
   height: 0;
 }
@@ -56,4 +56,8 @@
 
 .fontSize8 {
   font-size: 1.75rem;
+}
+
+.fontSize9 {
+  font-size: 1.5rem;
 }
