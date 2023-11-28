@@ -5,7 +5,8 @@ export const IS_OPERATOR_REGEX = /^[-+*\/%]$/;
 const CONTAINS_OPERATOR_REGEX = /[-+*/%]/;
 const MAX_NUM_LENGTH = 15;
 const MAX_PRECISION = 14;
-const EXPONENT_LIMIT = 15;
+const UPPER_EXPONENT_LIMIT = 12;
+const LOWER_EXPONENT_LIMIT = -6;
 
 function containsTwoTerms(localExpression: string) {
   const terms = localExpression.split(CONTAINS_OPERATOR_REGEX);
@@ -16,10 +17,9 @@ function containsTwoTerms(localExpression: string) {
   return terms.length >= 2 && terms[0] && terms[1];
 }
 
-function evaluate(exp: string) {
-  let expSplit = splitExpression(exp);
-
-  expSplit = expSplit.map((token) => {
+function evaluate(expression: string) {
+  let expressionSplit = splitExpression(expression);
+  expressionSplit = expressionSplit.map((token) => {
     if (!IS_OPERATOR_REGEX.test(token)) {
       if (Number(token) === 0) {
         return "0";
@@ -33,17 +33,20 @@ function evaluate(exp: string) {
     return token;
   });
 
-  if (IS_OPERATOR_REGEX.test(expSplit[expSplit.length - 1])) {
-    expSplit.pop();
+  if (IS_OPERATOR_REGEX.test(expressionSplit[expressionSplit.length - 1])) {
+    expressionSplit.pop();
   }
 
-  const cleanedExp = expSplit.join("");
+  const cleanedExpression = expressionSplit.join("");
 
   try {
-    return format(eval(cleanedExp), {
+    const result = eval(cleanedExpression);
+    const resultFormatted = format(result, {
       precision: MAX_PRECISION,
-      upperExp: EXPONENT_LIMIT,
+      upperExp: UPPER_EXPONENT_LIMIT,
+      lowerExp: LOWER_EXPONENT_LIMIT,
     });
+    return resultFormatted;
   } catch (error) {
     console.log(error);
     return "";

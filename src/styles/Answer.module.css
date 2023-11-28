@@ -1,5 +1,6 @@
 .answerContainer {
   width: 100%;
+  overflow: hidden;
 }
 
 .answer {
@@ -8,7 +9,6 @@
   width: 100%;
   height: 1.65rem;
   text-align: right;
-  text-overflow: ellipsis;
 }
 
 .error {
