@@ -1,4 +1,5 @@
-import { Dispatch, SetStateAction, useEffect, useRef } from "react";
+import { Dispatch, SetStateAction, useContext, useEffect, useRef } from "react";
+import { HistoryContext } from "../contexts/History";
 import Overlay from "./Overlay";
 import styles from "../styles/Menu.module.css";
 
@@ -7,7 +8,14 @@ type MenuProps = {
 };
 
 export default function Menu({ setModalsState }: MenuProps) {
+  const { setIsHistoryOpen } = useContext(HistoryContext);
   const menuRef = useRef<HTMLDivElement>(null);
+
+  function handleHistoryClick(e: React.MouseEvent) {
+    e.stopPropagation();
+    setModalsState((previous) => ({ ...previous, isMenuOpen: false }));
+    setIsHistoryOpen((previous) => !previous);
+  }
 
   function handleSettingsClick(e: React.MouseEvent) {
     e.stopPropagation();
@@ -31,9 +39,9 @@ export default function Menu({ setModalsState }: MenuProps) {
     <Overlay>
       <div ref={menuRef} className={styles.menu}>
         <ul>
-          {/* <li>
+          <li onClick={handleHistoryClick}>
             <p>History</p>
-          </li> */}
+          </li>
           <li onClick={handleSettingsClick}>
             <p>Settings</p>
           </li>
