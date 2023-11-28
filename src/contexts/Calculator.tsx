@@ -11,7 +11,7 @@ const defaultContextValue: CalculatorContextValueType = {
   state: {
     expression: "",
     answer: "",
-    previousExpression: "",
+    previousExpression: ["", ""],
     overwrite: false,
     error: "",
   },
@@ -21,7 +21,7 @@ const defaultContextValue: CalculatorContextValueType = {
 const initialState: CalculatorStateType = {
   expression: "",
   answer: "",
-  previousExpression: "",
+  previousExpression: ["", ""],
   overwrite: false,
   error: "",
 };
@@ -33,8 +33,10 @@ export default function CalculatorProvider({ children }: ChildrenType) {
   const [state, dispatch] = useReducer(calculatorReducer, initialState);
 
   useEffect(() => {
-    storeHistory(state.previousExpression);
-    console.log("New history stored!");
+    if (state.previousExpression[0] && state.previousExpression[1]) {
+      storeHistory(state.previousExpression);
+      console.log("New history stored!");
+    }
   }, [state.previousExpression]);
 
   return (

@@ -12,10 +12,12 @@ type ModalsStateType = {
   isSettingsOpen: boolean;
 };
 
+type PreviousExpressionType = [string, string];
+
 type CalculatorStateType = {
   expression: string;
   answer: string;
-  previousExpression: string;
+  previousExpression: PreviousExpressionType;
   overwrite: boolean;
   error: "" | "Full" | "Maximum length" | "Invalid expression";
 };

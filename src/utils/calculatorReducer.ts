@@ -110,7 +110,10 @@ export default function calculatorReducer(
           } else {
             newState.expression = evaluatedExpression;
             newState.answer = "";
-            newState.previousExpression = state.expression;
+            newState.previousExpression = [
+              state.expression,
+              evaluatedExpression,
+            ];
             newState.overwrite = true;
             newState.error = "";
             break;

@@ -1,15 +1,25 @@
+import addCommaSeparators from "../utils/addCommaSeparators";
+import formatExpression from "../utils/formatExpression";
+import styles from "../styles/History.module.css";
+
 export default function History() {
   let storedHistory: string[] = [];
   const storedHistoryJSON = localStorage.getItem("history");
   if (storedHistoryJSON) {
     storedHistory = JSON.parse(storedHistoryJSON);
   }
-  console.log(storedHistory)
+  console.log(storedHistory);
   return (
-    <div>
-      {storedHistory.map((expression, index) => (
-        <p key={index}>{expression}</p>
+    <div className={styles.historyContainer}>
+      {storedHistory.map(([expression, answer], index) => (
+        <p className={styles.historyLine} key={index}>
+          {formatExpression(expression)} = {addCommaSeparators(answer)}
+        </p>
       ))}
     </div>
   );
 }
+
+// function HistoryExpression(expression, answer) {
+//   return <></>;
+// }

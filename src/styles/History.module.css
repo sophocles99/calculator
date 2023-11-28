@@ -1,0 +1,29 @@
+.historyContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.historyContainer::-webkit-scrollbar {
+  background: transparent;
+  height: 0;
+}
+
+.historyLine {
+  width: 100%;
+  font-size: 1.5rem;
+  text-align: right;
+  overflow-x: auto;
+  text-wrap: nowrap;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.historyLine::-webkit-scrollbar {
+  background: transparent;
+  height: 0;
+}

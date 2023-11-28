@@ -1,11 +1,13 @@
-export default function storeHistory(expression: string) {
-  console.log("storeHistory:", Date.now())
-  let storedHistory = [];
+export default function storeHistory([
+  expression,
+  answer,
+]: PreviousExpressionType) {
+  let storedHistory: PreviousExpressionType[] = [];
   const storedHistoryJSON = localStorage.getItem("history");
   if (storedHistoryJSON) {
     storedHistory = JSON.parse(storedHistoryJSON);
   }
-  console.log(expression)
-  const newHistory = [...storedHistory, expression];
+  const newHistory: PreviousExpressionType[] = [...storedHistory, [expression, answer]];
+  // const newHistory: PreviousExpressionType[] = []
   localStorage.setItem("history", JSON.stringify(newHistory));
 }
