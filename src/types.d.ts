@@ -15,6 +15,7 @@ type ModalsStateType = {
 type CalculatorStateType = {
   expression: string;
   answer: string;
+  previousExpression: string;
   overwrite: boolean;
   error: "" | "Full" | "Maximum length" | "Invalid expression";
 };
