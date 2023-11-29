@@ -8,7 +8,6 @@ export default function History() {
   if (storedHistoryJSON) {
     storedHistory = JSON.parse(storedHistoryJSON);
   }
-  console.log(storedHistory);
   return (
     <div className={styles.historyContainer}>
       {storedHistory.map(([expression, answer], index) => (
@@ -19,7 +18,3 @@ export default function History() {
     </div>
   );
 }
-
-// function HistoryExpression(expression, answer) {
-//   return <></>;
-// }
