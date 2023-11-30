@@ -35,7 +35,6 @@ export default function CalculatorProvider({ children }: ChildrenType) {
   useEffect(() => {
     if (state.previousExpression[0] && state.previousExpression[1]) {
       storeHistory(state.previousExpression);
-      console.log("New history stored!");
     }
   }, [state.previousExpression]);
 
