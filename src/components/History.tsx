@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import addCommaSeparators from "../utils/addCommaSeparators";
 import formatExpression from "../utils/formatExpression";
 import styles from "../styles/History.module.css";
