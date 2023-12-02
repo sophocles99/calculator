@@ -1,7 +1,6 @@
 .settingsContainer {
   position: absolute;
   top: 9rem;
-  left: -0.25rem;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -10,7 +9,7 @@
 
 .settings {
   width: 65%;
-  padding: 1.5rem 1.75rem 2.25rem 1.75rem;
+  padding: 1rem 0.75rem 0.5rem 1.5rem;
   border-radius: 1rem;
   color: var(--text-colour);
   background-color: var(--bg-colour);

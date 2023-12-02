@@ -1,8 +1,9 @@
 import { Dispatch, SetStateAction, useContext, useEffect, useRef } from "react";
+import { SettingsContext } from "../contexts/Settings";
+import CloseButton from "./CloseButton";
 import Overlay from "./Overlay";
 import Switch from "./Switch";
 import styles from "../styles/Settings.module.css";
-import { SettingsContext } from "../contexts/Settings";
 
 type SettingsProps = {
   setModalsState: Dispatch<SetStateAction<ModalsStateType>>;
@@ -48,6 +49,13 @@ export default function Settings({ setModalsState }: SettingsProps) {
     <Overlay>
       <div className={styles.settingsContainer}>
         <div ref={settingsRef} className={styles.settings}>
+          <CloseButton
+            onClickCallback={() =>
+              setModalsState((previous) => {
+                return { ...previous, isSettingsOpen: false };
+              })
+            }
+          />
           <h2>Settings</h2>
           <Switch
             name="theme"
