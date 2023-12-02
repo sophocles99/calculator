@@ -28,7 +28,7 @@ const initialState: CalculatorStateType = {
 export const CalculatorContext =
   createContext<CalculatorContextValueType>(defaultContextValue);
 
-export default function CalculatorProvider({ children }: ChildrenType) {
+export default function CalculatorContextProvider({ children }: ChildrenType) {
   const [calculatorState, calculatorDispatch] = useReducer(
     calculatorReducer,
     initialState

@@ -44,10 +44,6 @@ export default function Settings({ setModalsState }: SettingsProps) {
     };
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem("settings", JSON.stringify(settingsState));
-  }, [settingsState]);
-
   return (
     <Overlay>
       <div className={styles.settingsContainer}>

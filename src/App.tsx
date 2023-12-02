@@ -7,8 +7,9 @@ import styles from "./App.module.css";
 import { SettingsContext } from "./contexts/Settings";
 
 export default function App() {
-  const { settingsState } = useContext(SettingsContext);
-  const { theme } = settingsState;
+  const {
+    settingsState: { theme },
+  } = useContext(SettingsContext);
 
   function handleKeyDown(e: KeyboardEvent) {
     handleKeyDownDispatch(e);
