@@ -7,7 +7,7 @@ type SwitchProps = {
   uncheckedLabel: string;
   checkedLabel: string;
   isChecked: boolean;
-  onChange: (newValue: boolean) => void;
+  onChangeCallback: (newValue: boolean) => void;
 };
 
 export default function Switch({
@@ -16,12 +16,12 @@ export default function Switch({
   uncheckedLabel,
   checkedLabel,
   isChecked,
-  onChange,
+  onChangeCallback,
 }: SwitchProps) {
   const [checked, setChecked] = useState(isChecked);
 
   useEffect(() => {
-    onChange(checked);
+    onChangeCallback(checked);
   }, [checked]);
 
   return (

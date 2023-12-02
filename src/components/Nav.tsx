@@ -7,9 +7,8 @@ import Settings from "./Settings";
 import styles from "../styles/Nav.module.css";
 
 export default function Nav() {
-  const {
-    historyState: { historyIsOpen },
-  } = useContext(HistoryContext);
+  const { historyState } = useContext(HistoryContext);
+  const { historyIsOpen } = historyState;
 
   const initialModalsState: ModalsStateType = {
     isMenuOpen: false,

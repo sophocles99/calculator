@@ -1,9 +1,9 @@
 import { useContext, useEffect, useRef } from "react";
+import { CalculatorContext } from "../contexts/Calculator";
 import { HistoryContext } from "../contexts/History";
 import addCommaSeparators from "../utils/addCommaSeparators";
 import formatExpression from "../utils/formatExpression";
 import styles from "../styles/History.module.css";
-import { CalculatorContext } from "../contexts/Calculator";
 
 const playClick = () => {
   const clickSound = new Audio("clickSound.wav");
@@ -11,13 +11,11 @@ const playClick = () => {
 };
 
 export default function History() {
+  const { calculatorDispatch } = useContext(CalculatorContext);
+  const { historyState, historyDispatch } = useContext(HistoryContext);
+  const { historyLines } = historyState;
   const containerRef = useRef<HTMLDivElement | null>(null);
   const historyLinesRef = useRef<(HTMLParagraphElement | null)[]>([]);
-  const { calculatorDispatch } = useContext(CalculatorContext);
-  const {
-    historyState: { historyLines },
-    historyDispatch,
-  } = useContext(HistoryContext);
 
   // Set scroll positions for container and history paragraphs if necessary
   useEffect(() => {

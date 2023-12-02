@@ -5,11 +5,11 @@ import fitExpression from "../utils/fitExpression";
 import styles from "../styles/Expression.module.css";
 
 export default function Expression() {
-  const [expressionSize, setExpressionSize] = useState(1);
-  const containerRef = useRef<HTMLDivElement>(null);
   const { calculatorState } = useContext(CalculatorContext);
   const { expression } = calculatorState;
   const expressionFormatted = formatExpression(expression);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [expressionSize, setExpressionSize] = useState(1);
 
   useEffect(() => {
     const container = containerRef.current;

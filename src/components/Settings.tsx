@@ -55,7 +55,7 @@ export default function Settings({ setModalsState }: SettingsProps) {
             uncheckedLabel="Dark"
             checkedLabel="Light"
             isChecked={settingsState.theme === "light" ? true : false}
-            onChange={handleThemeChange}
+            onChangeCallback={handleThemeChange}
           />
           <Switch
             name="sound-effects"
@@ -63,7 +63,7 @@ export default function Settings({ setModalsState }: SettingsProps) {
             uncheckedLabel="Off"
             checkedLabel="On"
             isChecked={settingsState.sound === "on" ? true : false}
-            onChange={handleSoundChange}
+            onChangeCallback={handleSoundChange}
           />
         </div>
       </div>

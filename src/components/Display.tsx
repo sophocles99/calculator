@@ -6,13 +6,12 @@ import History from "./History";
 import styles from "../styles/Display.module.css";
 
 export default function Display() {
-  const {
-    historyState: { historyIsOpen: isHistoryOpen },
-  } = useContext(HistoryContext);
+  const { historyState } = useContext(HistoryContext);
+  const { historyIsOpen } = historyState;
 
   return (
     <section className={styles.display}>
-      {isHistoryOpen ? (
+      {historyIsOpen ? (
         <History />
       ) : (
         <>

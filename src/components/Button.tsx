@@ -45,17 +45,14 @@ const playSound = (value: string) => {
 };
 
 export default function Button({ value, type, icon, double }: ButtonDefType) {
+  const { settingsState } = useContext(SettingsContext);
+  const { sound } = settingsState;
   const { calculatorDispatch } = useContext(CalculatorContext);
-  const {
-    historyState: { historyIsOpen: isHistoryOpen },
-    historyDispatch,
-  } = useContext(HistoryContext);
-  const {
-    settingsState: { sound },
-  } = useContext(SettingsContext);
+  const { historyState, historyDispatch } = useContext(HistoryContext);
+  const { historyIsOpen } = historyState;
 
   const handleClick = (type: ButtonType, value: IconType | string) => {
-    if (isHistoryOpen) {
+    if (historyIsOpen) {
       historyDispatch({ type, payload: { value } });
       if (type === "number") {
         calculatorDispatch({ type, payload: { value } });

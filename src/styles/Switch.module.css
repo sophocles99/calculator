@@ -38,7 +38,6 @@
   width: calc(var(--height) - 4px);
   height: calc(var(--height) - 4px);
   border-radius: var(--border-radius);
-  /* border: 1px solid var(--bg-accent); */
   background-color: var(--text-colour);
   transition: transform var(--speed);
 }
