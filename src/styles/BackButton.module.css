@@ -1,0 +1,18 @@
+.backButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  color: inherit;
+  background-color: var(--bg-colour);
+  transition: background-color var(--speed);
+}
+
+.backButton:hover,
+.backButton:active {
+  background-color: var(--bg-accent);
+}
