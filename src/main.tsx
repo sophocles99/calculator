@@ -9,11 +9,11 @@ import SettingsContextProvider from "./contexts/Settings.tsx";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <SettingsContextProvider>
-      <HistoryContextProvider>
-        <CalculatorProvider>
+      <CalculatorProvider>
+        <HistoryContextProvider>
           <App />
-        </CalculatorProvider>
-      </HistoryContextProvider>
+        </HistoryContextProvider>
+      </CalculatorProvider>
     </SettingsContextProvider>
   </React.StrictMode>
 );

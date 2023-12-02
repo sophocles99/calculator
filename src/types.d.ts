@@ -12,19 +12,24 @@ type ModalsStateType = {
   isSettingsOpen: boolean;
 };
 
-type PreviousExpressionType = [string, string];
+type HistoryLineType = [string, string];
 
 type CalculatorStateType = {
   expression: string;
   answer: string;
-  previousExpression: PreviousExpressionType;
+  lastExpression: HistoryLineType;
   overwrite: boolean;
   error: "" | "Full" | "Maximum length" | "Invalid expression";
 };
 
+type HistoryStateType = {
+  historyIsOpen: boolean;
+  historyLines: HistoryLineType[];
+};
+
 type ActionType = {
   type: ButtonType;
-  payload: string;
+  payload: { value: string; historyLine?: HistoryLineType };
 };
 
 type IconType = "back" | "+-" | "/" | "*" | "-" | "+" | "=";

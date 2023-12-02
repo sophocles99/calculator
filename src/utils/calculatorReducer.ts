@@ -57,9 +57,13 @@ export default function calculatorReducer(
   state: CalculatorStateType,
   action: ActionType
 ) {
+  const {
+    type,
+    payload: { value, historyLine },
+  } = action;
   const newState = { ...state };
 
-  switch (action.type) {
+  switch (type) {
     case "number": {
       const currentExpSplit = splitExpression(state.expression);
       const currentToken = currentExpSplit[currentExpSplit.length - 1];
@@ -67,7 +71,7 @@ export default function calculatorReducer(
       if (state.error === "Full") {
         break;
       }
-      if (action.payload === ".") {
+      if (value === ".") {
         const terms = state.expression.split(CONTAINS_OPERATOR_REGEX);
         const currentTerm = terms[terms.length - 1];
         if (currentTerm.includes(".") && !state.overwrite) {
@@ -75,7 +79,7 @@ export default function calculatorReducer(
         }
       }
       if (state.overwrite) {
-        newState.expression = action.payload;
+        newState.expression = value;
         newState.answer = "";
         newState.overwrite = false;
         newState.error = "";
@@ -83,25 +87,24 @@ export default function calculatorReducer(
       } else if (
         currentToken &&
         !IS_OPERATOR_REGEX.test(currentToken) &&
-        action.payload !== "." &&
+        value !== "." &&
         currentToken.replace(".", "").length >= MAX_NUM_LENGTH
       ) {
         newState.error = "Maximum length";
         break;
       } else {
-        const newExpression = state.expression + action.payload;
-        const newAnswer = containsTwoTerms(newExpression)
+        const newExpression = state.expression + value;
+        newState.expression = newExpression;
+        newState.answer = containsTwoTerms(newExpression)
           ? evaluate(newExpression)
           : "";
-        newState.expression = newExpression;
-        newState.answer = newAnswer;
         newState.error = "";
         break;
       }
     }
 
     case "operator": {
-      if (action.payload === "=") {
+      if (value === "=") {
         if (containsTwoTerms(state.expression)) {
           const evaluatedExpression = evaluate(state.expression);
           if (evaluatedExpression === "") {
@@ -110,10 +113,7 @@ export default function calculatorReducer(
           } else {
             newState.expression = evaluatedExpression;
             newState.answer = "";
-            newState.previousExpression = [
-              state.expression,
-              evaluatedExpression,
-            ];
+            newState.lastExpression = [state.expression, evaluatedExpression];
             newState.overwrite = true;
             newState.error = "";
             break;
@@ -122,13 +122,13 @@ export default function calculatorReducer(
         break;
       }
       if (state.expression.length === 0) {
-        if (action.payload !== "-") {
+        if (value !== "-") {
           break;
         }
       }
       if (IS_OPERATOR_REGEX.test(state.expression.slice(-1))) {
         if (state.expression.length === 1) {
-          if (action.payload !== "-") {
+          if (value !== "-") {
             break;
           }
         }
@@ -137,13 +137,13 @@ export default function calculatorReducer(
       if (state.error === "Full") {
         break;
       }
-      newState.expression = newState.expression + action.payload;
+      newState.expression = newState.expression + value;
       newState.overwrite = false;
       break;
     }
 
     case "function": {
-      switch (action.payload) {
+      switch (value) {
         case "C": {
           newState.expression = "";
           newState.answer = "";
@@ -186,6 +186,15 @@ export default function calculatorReducer(
           newState.expression = newExpression;
           newState.answer = newAnswer;
           newState.overwrite = false;
+          break;
+        }
+        case "updateFromHistory": {
+          if (historyLine) {
+            newState.expression = historyLine[0];
+            newState.answer = historyLine[1];
+            newState.overwrite = false;
+            newState.error = "";
+          }
           break;
         }
       }

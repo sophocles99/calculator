@@ -8,13 +8,16 @@ type MenuProps = {
 };
 
 export default function Menu({ setModalsState }: MenuProps) {
-  const { setIsHistoryOpen } = useContext(HistoryContext);
+  const { historyDispatch } = useContext(HistoryContext);
   const menuRef = useRef<HTMLDivElement>(null);
 
   function handleHistoryClick(e: React.MouseEvent) {
     e.stopPropagation();
     setModalsState((previous) => ({ ...previous, isMenuOpen: false }));
-    setIsHistoryOpen((previous) => !previous);
+    historyDispatch({
+      type: "function",
+      payload: { value: "toggleHistoryIsOpen" },
+    });
   }
 
   function handleSettingsClick(e: React.MouseEvent) {

@@ -4,8 +4,8 @@ import addCommaSeparators from "../utils/addCommaSeparators";
 import styles from "../styles/Answer.module.css";
 
 export default function Answer() {
-  const { state } = useContext(CalculatorContext);
-  const { answer, error } = state;
+  const { calculatorState } = useContext(CalculatorContext);
+  const { answer, error } = calculatorState;
   const answerFormatted = addCommaSeparators(answer);
 
   return (
