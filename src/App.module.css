@@ -1,7 +1,7 @@
 :root {
   --speed: 300ms;
-  --display-text-colour: #272727;
-  --display-text-colour-hover: #515151;  
+  --display-text-colour: #171717;
+  --display-text-colour-light: #414141;  
   --error: #d45e66;
 }
 

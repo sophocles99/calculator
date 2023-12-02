@@ -9,6 +9,7 @@
   width: 100%;
   height: 1.65rem;
   text-align: right;
+  user-select: none;
 }
 
 .error {

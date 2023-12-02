@@ -11,12 +11,12 @@
 }
 
 .historyContainer::-webkit-scrollbar-thumb {
-  background-color: var(--display-text-colour);
+  background-color: var(--display-text-colour-light);
   border-radius: 0.25rem;
 }
 
 .historyContainer::-webkit-scrollbar-thumb:hover {
-  background-color: var(--display-text-colour-hover);
+  background-color: var(--display-text-colour);
 }
 
 /* Push paragraphs down - instead of justify-content: end, which stops
@@ -34,13 +34,14 @@ overflow-y from working */
   text-align: right;
   white-space: nowrap;
   user-select: none;
+  color: var(--display-text-colour-light);
   overflow-x: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
 
 .historyLine:hover {
-  color: var(--display-text-colour-hover);
+  color: var(--display-text-colour);
 }
 
 .historyLine::-webkit-scrollbar {
