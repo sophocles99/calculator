@@ -1,27 +1,26 @@
-import { createContext, Dispatch, useEffect, useReducer } from "react";
+import { createContext, Dispatch, useReducer } from "react";
 import calculatorReducer from "../utils/calculatorReducer";
-import storeHistory from "../utils/storeHistory";
 
 type CalculatorContextValueType = {
-  state: CalculatorStateType;
-  dispatch: Dispatch<ActionType>;
+  calculatorState: CalculatorStateType;
+  calculatorDispatch: Dispatch<ActionType>;
 };
 
 const defaultContextValue: CalculatorContextValueType = {
-  state: {
+  calculatorState: {
     expression: "",
     answer: "",
-    previousExpression: ["", ""],
+    lastExpression: ["", ""],
     overwrite: false,
     error: "",
   },
-  dispatch: () => {},
+  calculatorDispatch: () => {},
 };
 
 const initialState: CalculatorStateType = {
   expression: "",
   answer: "",
-  previousExpression: ["", ""],
+  lastExpression: ["", ""],
   overwrite: false,
   error: "",
 };
@@ -30,16 +29,13 @@ export const CalculatorContext =
   createContext<CalculatorContextValueType>(defaultContextValue);
 
 export default function CalculatorProvider({ children }: ChildrenType) {
-  const [state, dispatch] = useReducer(calculatorReducer, initialState);
-
-  useEffect(() => {
-    if (state.previousExpression[0] && state.previousExpression[1]) {
-      storeHistory(state.previousExpression);
-    }
-  }, [state.previousExpression]);
+  const [calculatorState, calculatorDispatch] = useReducer(
+    calculatorReducer,
+    initialState
+  );
 
   return (
-    <CalculatorContext.Provider value={{ state, dispatch }}>
+    <CalculatorContext.Provider value={{ calculatorState, calculatorDispatch }}>
       {children}
     </CalculatorContext.Provider>
   );

@@ -6,7 +6,9 @@ import History from "./History";
 import styles from "../styles/Display.module.css";
 
 export default function Display() {
-  const { isHistoryOpen } = useContext(HistoryContext);
+  const {
+    historyState: { historyIsOpen: isHistoryOpen },
+  } = useContext(HistoryContext);
 
   return (
     <section className={styles.display}>

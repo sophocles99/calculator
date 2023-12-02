@@ -12,6 +12,7 @@ import {
   faEquals,
 } from "@fortawesome/free-solid-svg-icons";
 import styles from "../styles/Button.module.css";
+import { HistoryContext } from "../contexts/History";
 
 const icons = {
   back: faDeleteLeft,
@@ -44,10 +45,25 @@ const playSound = (value: string) => {
 };
 
 export default function Button({ value, type, icon, double }: ButtonDefType) {
-  const { dispatch } = useContext(CalculatorContext);
+  const { calculatorDispatch } = useContext(CalculatorContext);
+  const {
+    historyState: { historyIsOpen: isHistoryOpen },
+    historyDispatch,
+  } = useContext(HistoryContext);
   const {
     settingsState: { sound },
   } = useContext(SettingsContext);
+
+  const handleClick = (type: ButtonType, value: IconType | string) => {
+    if (isHistoryOpen) {
+      historyDispatch({ type, payload: { value } });
+      if (type === "number") {
+        calculatorDispatch({ type, payload: { value } });
+      }
+    } else {
+      calculatorDispatch({ type, payload: { value } });
+    }
+  };
 
   return (
     <button
@@ -57,7 +73,7 @@ export default function Button({ value, type, icon, double }: ButtonDefType) {
       }`}
       onClick={() => {
         sound === "on" && playSound(value);
-        dispatch({ type, payload: value });
+        handleClick(type, value);
       }}
     >
       {icon ? <FontAwesomeIcon icon={icons[value]} /> : value}
